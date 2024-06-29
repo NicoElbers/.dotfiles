@@ -18,6 +18,4 @@ in
     };
 
   };
-
-  # inherit nixpkgs system dependencyOverlays extra_pkg_config;
 }
