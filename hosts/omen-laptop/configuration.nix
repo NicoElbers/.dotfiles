@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, system, pkgs, inputs, ... }:
+{ config, system, pkgs, inputs, ... }@extra:
 
 let 
   base = extra.basePath + /modules;
