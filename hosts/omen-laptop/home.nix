@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let 
+  base = ../../modules/home-manager;
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -72,7 +75,9 @@
   };
 
   imports = [
-    ../../modules/home-manager/git.nix
+    (base + /git.nix)
+    # (base + /sway.nix)
+    (base + /hyprland.nix) # Is borked
   ];
 
   git.userName = "Nico Elbers";

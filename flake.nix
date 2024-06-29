@@ -17,15 +17,12 @@
     systemSettings = {
       system = "x86_64-linux";
     };
-
-    basePath = ./.;
   in
   {
     nixosConfigurations.omen = lib.nixosSystem {
       specialArgs = {
         inherit inputs;
         inherit systemSettings;
-        inherit basePath;
       };
       system = systemSettings.system;
       modules = [
