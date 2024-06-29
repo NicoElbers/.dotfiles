@@ -1,3 +1,0 @@
-[submodule "config"]
-	path = modules/nixCats/config
-	url = https://github.com/NicoElbers/nixCats-config
