@@ -4,13 +4,17 @@
 
 { config, system, pkgs, inputs, ... }:
 
+let 
+  base = extra.basePath + /modules;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ../../modules/nixCats/nc.nix 
-      ../../modules/users/nico.nix
+      (base + /nixCats/neovim.nix )
+      # (base + /modules/desktop/hyprland.nix)
+      (base + /users/nico.nix)
     ];
 
   # Bootloader.
