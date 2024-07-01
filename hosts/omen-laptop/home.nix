@@ -77,7 +77,7 @@ in
   imports = [
     (base + /git.nix)
     # (base + /sway.nix)
-    (base + /hyprland.nix) # Is borked
+    # (base + /hyprland.nix) # Is borked
   ];
 
   git.userName = "Nico Elbers";

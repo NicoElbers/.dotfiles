@@ -15,6 +15,7 @@ in
 
       (base + /nixCats/neovim.nix )
       (base + /users/nico.nix)
+      (base + /desktop/hyprland.nix)
     ];
 
   # Bootloader.
