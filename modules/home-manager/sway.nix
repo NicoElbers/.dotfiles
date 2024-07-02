@@ -1,17 +1,25 @@
-{ pkgs, lib, inputs, ...}: 
-{
-  security.polkit.enable = true;
+{pkgs, lib, config, ...}:
 
-    wayland.windowManager.sway = {
+{
+  wayland.windowManager.sway = {
     enable = true;
+    wrapperFeatures.gtk = true;
+    systemd.enable = true;
     config = {
+      gaps = {
+        smartBorders = "on";
+      };
       modifier = "Mod4";
-      # Use kitty as default terminal
-      terminal = "kitty"; 
-      startup = [
-        # Launch Firefox on start
-        {command = "firefox";}
-      ];
+      menu = "tofi-drun --drun-launch-true";
+      terminal = "kitty";
+      keybindings = 
+        let 
+          mod = config.wayland.windowManager.sway.config.modifier;
+        in
+        lib.mkOptionDefault {
+          "${mod}+Shift+e" = "exit";
+          "${mod}+Shift+f" = "exec firefox";
+        };
     };
   };
 }

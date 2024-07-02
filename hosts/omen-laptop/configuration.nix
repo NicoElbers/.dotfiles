@@ -6,22 +6,40 @@
 
 let 
   base = ../../modules;
+  hardware = inputs.nixos-hardware;
 in
 {
   imports =
     [ 
       ./hardware-configuration.nix
+      hardware.nixosModules.omen-16-n0280nd
+      
       inputs.home-manager.nixosModules.default
+      (base + /base.nix)
 
-      (base + /nixCats/neovim.nix )
+      (base + /nixCats/neovim.nix)
       (base + /users/nico.nix)
-      (base + /desktop/hyprland.nix)
     ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
+
+  # Nvidia
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.finegrained = true;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
+  };
+
+  # # Laptop nvidia config
+  # hardware.nvidia.prime = {
+  #   nvidiaBusId = "PCI:0:2:0";
+  # };
+
 
   networking.hostName = "omen"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -110,9 +128,6 @@ in
   # Install firefox.
   programs.firefox.enable = true;
 
-  # nuke netcat
-  # programs.netcat.enable = false;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -123,7 +138,10 @@ in
     wget
     kitty   
     git
+    polkit
   ];
+
+  security.polkit.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -156,5 +174,26 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
+
+  services.dbus.enable = true;
+
+  # Sway deps
+  programs.sway = {
+    enable = true;
+    wrapperFeatures = { base = true; gtk = true; };
+    extraPackages = with pkgs; [
+      grim
+      playerctl
+      slurp
+      swayidle
+      swaylock
+      tofi
+      wf-recorder
+      wl-clipboard
+    ];
+  };
+
+  programs.waybar.enable = true;
+  qt.platformTheme = "qt5ct";
 
 }
