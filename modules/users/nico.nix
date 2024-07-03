@@ -1,8 +1,7 @@
 {pkgs, ...}:
 {
-
   imports = [
-    ../home-manager/zsh.nix
+    ../zsh.nix
   ];
 
   config = {

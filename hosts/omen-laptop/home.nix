@@ -66,6 +66,7 @@ in
   imports = [
     (base + /git.nix)
     (base + /sway.nix)
+    (base + /zsh.nix)
   ];
 
   git.userName = "Nico Elbers";
