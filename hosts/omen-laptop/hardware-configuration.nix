@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [ 
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -19,7 +20,7 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/DC86-0EFE";
+    { device = "/dev/disk/by-uuid/71D5-4ADD";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };

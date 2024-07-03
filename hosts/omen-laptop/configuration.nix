@@ -13,6 +13,7 @@ in
     [ 
       ./hardware-configuration.nix
       hardware.nixosModules.omen-16-n0280nd
+      ./bootloader.nix
       
       inputs.home-manager.nixosModules.default
       (base + /base.nix)
@@ -20,11 +21,6 @@ in
       (base + /nixCats/neovim.nix)
       (base + /users/nico.nix)
     ];
-
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
 
   # Nvidia
   hardware.nvidia = {
@@ -35,16 +31,9 @@ in
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
-  # # Laptop nvidia config
-  # hardware.nvidia.prime = {
-  #   nvidiaBusId = "PCI:0:2:0";
-  # };
-
-
   networking.hostName = "omen"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 
   # Configure network proxy if necessary
@@ -108,16 +97,6 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.nico = {
-  #   isNormalUser = true;
-  #   description = "Nico";
-  #   extraGroups = [ "networkmanager" "wheel" ];
-  #   packages = with pkgs; [
-  #     kdePackages.kate
-  #   ];
-  # };
-
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
@@ -139,6 +118,9 @@ in
     kitty   
     git
     polkit
+    neofetch
+    ripgrep
+    clinfo
   ];
 
   security.polkit.enable = true;
