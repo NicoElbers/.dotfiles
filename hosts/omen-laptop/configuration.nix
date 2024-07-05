@@ -110,10 +110,6 @@ in
     };
   };
 
-  # Install firefox.
-  # FIXME: Move into base
-  programs.firefox.enable = true;
-
   # Allow unfree packages
   # FIXME: Move into base
   nixpkgs.config.allowUnfree = true;
