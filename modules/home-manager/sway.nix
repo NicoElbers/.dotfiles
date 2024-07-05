@@ -5,6 +5,9 @@
     enable = true;
     wrapperFeatures.gtk = true;
     systemd.enable = true;
+    extraOptions = [
+      "--unsupported-gpu"
+    ];
     config = {
       gaps = {
         smartBorders = "on";

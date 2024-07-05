@@ -20,6 +20,8 @@ in
 
       (base + /nixCats/neovim.nix)
       (base + /users/nico.nix)
+
+      (base + /desktop/sway.nix)
     ];
 
   # Nvidia
@@ -156,26 +158,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
-  services.dbus.enable = true;
-
-  # Sway deps
-  programs.sway = {
-    enable = true;
-    wrapperFeatures = { base = true; gtk = true; };
-    extraPackages = with pkgs; [
-      grim
-      playerctl
-      slurp
-      swayidle
-      swaylock
-      tofi
-      wf-recorder
-      wl-clipboard
-    ];
-  };
-
-  programs.waybar.enable = true;
-  qt.platformTheme = "qt5ct";
-
 }
