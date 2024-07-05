@@ -110,10 +110,6 @@ in
     };
   };
 
-  # Allow unfree packages
-  # FIXME: Move into base
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # FIXME: Move into base

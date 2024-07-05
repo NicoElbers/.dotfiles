@@ -17,6 +17,9 @@
     ];
   }; 
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # Set browser
   programs.firefox.enable = true;
   xdg.mime.defaultApplications = {
