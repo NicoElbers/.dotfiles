@@ -60,7 +60,7 @@ in
   #  /etc/profiles/per-user/nico/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "nv";
   };
 
   imports = [
