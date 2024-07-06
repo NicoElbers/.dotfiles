@@ -72,19 +72,27 @@ in
 
   wayland.windowManager.sway = {
     enable = true;
-    # package = pkgs.swayfx;
+    package = pkgs.swayfx;
+    checkConfig = false;
     wrapperFeatures.gtk = true;
     systemd.enable = true;
     extraOptions = [
       "--unsupported-gpu"
     ];
 
+    extraConfig = ''
+      # swayfx config
+      for_window [app_id="kitty"] blur enable
+      blur_passes 4
+      blur_radius 7
+
+      # shadows enable
+
+      corner_radius 10
+    '';
+
     systemd.xdgAutostart = true;
     
-    # extraSessionCommands = ''
-    #   exec ${pkgs.networkmanagerapplet}/bin/nm-applet
-    # '';
-
     config = {
       gaps = {
         smartBorders = "no_gaps";
