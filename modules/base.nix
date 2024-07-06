@@ -2,6 +2,7 @@
 {
   imports = [
     ./bluetooth.nix
+    ./sddm
   ];
 
   config = {
