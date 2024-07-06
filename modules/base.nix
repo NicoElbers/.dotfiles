@@ -16,6 +16,18 @@
         polkit
     ];
 
+    fonts = {
+      enableDefaultPackages = true;
+      packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+
+        # Asian languages
+        noto-fonts-cjk-sans
+      ];
+    };
+
+    
+
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
