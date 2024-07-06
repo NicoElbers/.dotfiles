@@ -133,6 +133,9 @@ in
         in
         lib.mkOptionDefault {
 
+          # Disabled
+          "${mod}+v" = "";
+
           # Operations
           "${mod}+Shift+q" = "kill";
           "${mod}+Shift+e" = "exit";
