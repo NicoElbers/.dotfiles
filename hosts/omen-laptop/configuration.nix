@@ -11,16 +11,24 @@ in
 {
   imports =
     [ 
+      # Hardware specific conifig
       ./hardware-configuration.nix
       hardware.nixosModules.omen-16-n0280nd
       ./bootloader.nix
       
+      # Home manager
       inputs.home-manager.nixosModules.default
+
+      # Base config
       (base + /base.nix)
 
+      # FIXME: Move into base
       (base + /nixCats/neovim.nix)
+
+      # Users
       (base + /users/nico.nix)
 
+      # DE
       (base + /desktop/sway.nix)
     ];
 
