@@ -7,5 +7,8 @@
   ];
 
   security.polkit.enable = lib.mkForce true;
-  programs.sway.enable = true;
+  programs.sway = {
+    enable = true;
+    # package = pkgs.swayfx;
+  };
 }

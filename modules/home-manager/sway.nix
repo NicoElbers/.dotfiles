@@ -72,6 +72,7 @@ in
 
   wayland.windowManager.sway = {
     enable = true;
+    # package = pkgs.swayfx;
     wrapperFeatures.gtk = true;
     systemd.enable = true;
     extraOptions = [
