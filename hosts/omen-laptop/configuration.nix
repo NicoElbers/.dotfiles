@@ -131,6 +131,8 @@ in
     neofetch
     ripgrep
     clinfo
+
+    discord
   ];
 
   security.polkit.enable = true;
