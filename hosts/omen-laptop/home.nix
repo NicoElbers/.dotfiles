@@ -67,6 +67,7 @@ in
     (base + /git.nix)
     (base + /sway)
     (base + /zsh.nix)
+    (base + /alacritty.nix)
   ];
 
   git.userName = "Nico Elbers";

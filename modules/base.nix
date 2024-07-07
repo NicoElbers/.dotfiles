@@ -15,6 +15,9 @@
         git
         wl-clipboard
         polkit
+
+        # Terminal
+        alacritty
     ];
 
     fonts = {
