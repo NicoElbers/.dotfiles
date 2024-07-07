@@ -65,12 +65,17 @@ in
 
   imports = [
     (base + /git.nix)
-    (base + /sway.nix)
+    (base + /sway)
     (base + /zsh.nix)
   ];
 
   git.userName = "Nico Elbers";
   git.userEmail = "nico.b.elbers@gmail.com";
+
+  sway-cfg = {
+    enable = true;
+    swayfx.enable = true;
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
