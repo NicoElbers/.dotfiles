@@ -1,3 +1,4 @@
+# TODO: Decide if this is better moved to ./users
 {config, pkgs, ...}:
 {
   imports = [
@@ -8,6 +9,7 @@
   config = {
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+    # TODO: Add more, like compiler and shit. 
     environment.systemPackages = with pkgs; [
         vim 
         wget
@@ -35,6 +37,7 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
+    # TODO: See if I can make this more configurable
     # Set browser
     programs.firefox.enable = true;
     xdg.mime.defaultApplications = {

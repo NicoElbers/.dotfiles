@@ -1,3 +1,4 @@
+# TODO: remove
 { pkgs, ...}:
 {
   # home.packages = [ pkgs.xclip ];

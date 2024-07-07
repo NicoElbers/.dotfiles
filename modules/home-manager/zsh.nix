@@ -1,3 +1,4 @@
+# TODO: Make this module configurable
 { pkgs, ...}:
 {
   config = {

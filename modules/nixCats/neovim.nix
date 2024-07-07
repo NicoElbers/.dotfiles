@@ -1,3 +1,4 @@
+# TODO: Work with a pure github reference instead of a path
 {pkgs, ...}:
 let 
   nixCats = builtins.getFlake (toString ./config);

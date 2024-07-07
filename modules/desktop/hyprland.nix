@@ -1,3 +1,4 @@
+# TODO: Remove
 { inputs, config, pkgs, ...}:
 {
   nix.settings = {

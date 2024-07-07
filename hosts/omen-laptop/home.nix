@@ -1,3 +1,4 @@
+# TODO: Try to remove this file as much as possible
 { config, pkgs, ... }:
 
 let 
@@ -63,6 +64,7 @@ in
     EDITOR = "nv";
   };
 
+  # TODO: Make a general 'include' file, and configure more
   imports = [
     (base + /git.nix)
     (base + /sway)
