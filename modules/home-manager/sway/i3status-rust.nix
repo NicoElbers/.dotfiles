@@ -106,6 +106,8 @@ in
               theme = "native";
             };
           };
+
+          icons = "material-nf";
         };
 
       };
