@@ -25,6 +25,9 @@
 
         # Terminal
         alacritty
+
+        # Useful applications
+        spotify
     ];
 
     fonts = {
