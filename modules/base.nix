@@ -7,7 +7,13 @@
   ];
 
   config = {
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+
+    nixpkgs.config = {
+      allowUnfree = true;
+    };
 
     # TODO: Add more, like compiler and shit. 
     environment.systemPackages = with pkgs; [
@@ -30,11 +36,6 @@
         noto-fonts-cjk-sans
       ];
     };
-
-    
-
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
 
     # TODO: See if I can make this more configurable
     # Set browser
