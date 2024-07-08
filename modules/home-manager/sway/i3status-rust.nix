@@ -87,9 +87,9 @@ in
 
             {
               block = "battery";
-              full_format = " $icon $percentage.eng(w:4) $time.datetime(f:'%H:%M:%S') ";
-              charging_format = " $icon $percentage.eng(w:4) $time.datetime(f:'%H:%M:%S') ";
-              empty_format = " $icon CHARGE YOUR SHIT AAAA $percentage.eng(w:4) $time.datetime(f:'%H:%M:%S') ";
+              full_format = " $icon $percentage.eng(w:4) {$time.datetime(f:'%H:%M:%S')|} ";
+              charging_format = " $icon $percentage.eng(w:4) {$time.datetime(f:'%H:%M:%S')|} ";
+              empty_format = " $icon CHARGE YOUR SHIT AAAA $percentage.eng(w:4) {$time.datetime(f:'%H:%M:%S')|} ";
               interval = 1;
             }
 
