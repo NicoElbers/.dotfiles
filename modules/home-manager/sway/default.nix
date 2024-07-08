@@ -37,6 +37,11 @@ in
   };
 
   config = lib.mkIf sway-cfg.enable {
+    home.packages = with pkgs;[
+      pamixer
+      playerctl
+    ];
+
     # Enable statusbar
     i3status-rust.enable = lib.mkDefault true;
 
@@ -160,6 +165,20 @@ in
           "${mod}+Shift+9" = "move container to workspace number ${ws9}";
           "${mod}+Shift+0" = "move container to workspace number ${ws10}";
 
+          # Brightness
+          "XF86MonBrightnessDown" = "exec light -U 10";
+          "XF86MonBrightnessUp"   = "exec light -A 10";
+
+          # Volume
+          "XF86AudioRaiseVolume" = "exec pamixer --allow-boost -i 5";
+          "XF86AudioLowerVolume" = "exec pamixer --allow-boost -d 5";
+          "XF86AudioMute"        = "exec pamixer -t";
+
+          # Media player
+          "XF86AudioPlay"  = "exec playerctl play-pause";
+          "XF86AudioPause" = "exec playerctl play-pause";
+          "XF86AudioNext"  = "exec playerctl next";
+          "XF86AudioPrev"  = "exec playerctl previous";
         };
       };
     };

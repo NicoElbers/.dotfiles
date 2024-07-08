@@ -6,10 +6,12 @@
   ];
 
   config = {
+    programs.light.enable = true;
+
     users.users.nico = {
       isNormalUser = true;
       description = "Nico";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "video" "networkmanager" "wheel" ];
 
       shell = pkgs.zsh;
 
