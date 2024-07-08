@@ -76,9 +76,10 @@ in
   
 
   # Configure keymap in X11
-  services.xserver = {
+  # TODO: See if this needs to be removed
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.

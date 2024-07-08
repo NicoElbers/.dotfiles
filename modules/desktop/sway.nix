@@ -46,5 +46,5 @@ in
   };
 
   # Setup session for swayfx
-  services.xserver.displayManager.sessionPackages = [ sway-nvidia sway ];
+  services.displayManager.sessionPackages = [ sway-nvidia sway ];
 }
