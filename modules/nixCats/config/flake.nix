@@ -98,7 +98,7 @@
           nil
           marksman
           pyright
-          inputs.zls
+          inputs.zls.packages.${pkgs.system}.zls
           rust-analyzer
 
           # Formatters
