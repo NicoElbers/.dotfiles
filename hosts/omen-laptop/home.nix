@@ -68,7 +68,7 @@ in
   imports = [
     (base + /git.nix)
     (base + /sway)
-    (base + /zsh.nix)
+    (base + /zsh)
     (base + /alacritty.nix)
   ];
 
@@ -78,6 +78,15 @@ in
   sway-cfg = {
     enable = true;
     swayfx.enable = true;
+  };
+
+  zsh-cfg = {
+    enable = true;
+    debug = false;
+
+    ohMyPosh = {
+      enable = true;
+    };
   };
 
   # Let Home Manager install and manage itself.
