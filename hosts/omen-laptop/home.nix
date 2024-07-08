@@ -71,6 +71,7 @@ in
     (base + /zsh)
     (base + /alacritty.nix)
     (base + /nixpkgs)
+    (base + /direnv.nix)
   ];
 
   git.userName = "Nico Elbers";
@@ -89,6 +90,7 @@ in
       enable = true;
     };
   };
+  direnv-cfg.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
