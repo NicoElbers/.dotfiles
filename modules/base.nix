@@ -17,16 +17,24 @@
 
     # TODO: Add more, like compiler and shit. 
     environment.systemPackages = with pkgs; [
-        vim 
-        wget
-        git
+        # Essentials
+        vim       # Edit files
+        git       # Pull down config
+        wget      # Download stuff if required
+        alacritty # Terminal
+
+        # Great utilities
+        bat
         wl-clipboard
+
+        # Safe to have available
+        # FIXME: Either enable polkit here or remove it from here
+        # I'm opting to remove it tbh; more minimal
         polkit
 
-        # Terminal
-        alacritty
-
         # Useful applications
+        # FIXME: move into ./user honestly
+        # Maybe add into "./useful applications" or smth
         spotify
     ];
 

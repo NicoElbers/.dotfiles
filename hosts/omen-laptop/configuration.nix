@@ -131,6 +131,7 @@ in
     discord
   ];
 
+  #FIXME: put into base
   security.polkit.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
