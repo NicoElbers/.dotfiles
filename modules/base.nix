@@ -33,11 +33,20 @@
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
+        # Nerdfont
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
 
         # Asian languages
         noto-fonts-cjk-sans
       ];
+
+      fontconfig = {
+        defaultFonts = {
+          monospace = [ "FiraCode Nerd Font Mono" ];
+          sansSerif = [ "FiraCode Nerd Font Propo" ];
+          serif     = [ "Liberation Serif" ];
+        };
+      };
     };
 
     # TODO: See if I can make this more configurable
