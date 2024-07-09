@@ -75,6 +75,10 @@ in
           hideEdgeBorders = "both";
         };
 
+        assigns = {
+          ${ws10} = [{ class = "^Spotify$"; }];
+        };
+
         floating = {
           titlebar = false;
           border = 0;
@@ -97,6 +101,10 @@ in
         startup = [
           # Quick and dirty fix to start at the right workspace
           { command = "swaymsg workspace ${ws1}"; }
+
+          # Auto start spotify 
+          # TODO: See if I can put this in xdgAutostart
+          { command = "spotify"; }
         ];
 
         keybindings = 
