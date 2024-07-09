@@ -22,6 +22,11 @@ in
       userName = cfg.userName;
       userEmail = cfg.userEmail;
 
+      signing = {
+        signByDefault = true;
+        key = null;
+      };
+
       extraConfig = {
         init.defaultBranch = "main";
       };
