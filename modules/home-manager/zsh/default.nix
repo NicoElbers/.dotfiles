@@ -2,6 +2,7 @@
 { lib, config, pkgs, ... }:
 let
   cfg = config.zsh-cfg;
+  shell-scipts = import ../../shell-scripts.nix { inherit lib pkgs; };
 in
 {
   imports = [
@@ -20,7 +21,6 @@ in
       zsh
     ];
 
-
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -29,6 +29,7 @@ in
 
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --impure --flake ~/.dotfiles#omen";
+        zello = lib.getExe shell-scipts.zello;
       };
       
       plugins = [
