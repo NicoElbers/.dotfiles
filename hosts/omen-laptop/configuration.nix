@@ -106,6 +106,8 @@ in
   # services.xserver.libinput.enable = true;
 
   home-manager = {
+    useGlobalPkgs = true;
+  
     extraSpecialArgs = { inherit inputs; };
     users = {
       "nico" = import ./home.nix;
