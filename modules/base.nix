@@ -36,6 +36,7 @@
         # FIXME: move into ./user honestly
         # Maybe add into "./useful applications" or smth
         spotify
+        bitwarden-desktop
     ];
 
     fonts = {
