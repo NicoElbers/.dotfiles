@@ -11,7 +11,7 @@
 
     nixos-hardware.url = "github:NicoElbers/nixos-hardware/master";
 
-    # hyprland.url = "github:hyprwm/Hyprland";
+    zig.url = "github:mitchellh/zig-overlay";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: 
@@ -34,5 +34,7 @@
         inputs.home-manager.nixosModules.default
       ];
     };
+
+    templates = import ./templates;
   };
 }
