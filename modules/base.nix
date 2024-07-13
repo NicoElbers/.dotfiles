@@ -26,6 +26,7 @@
         # Great utilities
         bat
         wl-clipboard
+        htop
 
         # Safe to have available
         # FIXME: Either enable polkit here or remove it from here
