@@ -1,5 +1,5 @@
 # TODO: Decide if this is better moved to ./users
-{config, pkgs, ...}:
+{ pkgs, ... }:
 {
   imports = [
     ./bluetooth.nix
@@ -21,6 +21,8 @@
         vim       # Edit files
         git       # Pull down config
         wget      # Download stuff if required
+
+        # FIXME: Find an alternative to alacritty
         alacritty # Terminal
 
         # Great utilities
