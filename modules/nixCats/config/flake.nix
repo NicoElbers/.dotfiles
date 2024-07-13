@@ -108,6 +108,9 @@
           rustfmt
           checkstyle
           languagetool-rust
+          
+          # latex
+          texliveFull
 
           # Clipboard
           # TODO: Make it so it installs the right clipboard
