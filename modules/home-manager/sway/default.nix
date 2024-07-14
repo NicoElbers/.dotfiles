@@ -40,6 +40,10 @@ in
     home.packages = with pkgs;[
       pamixer
       playerctl
+
+      grim
+      slurp
+      xdg-user-dirs
     ];
 
     # Enable statusbar
@@ -114,6 +118,12 @@ in
         let 
           cfg = config.wayland.windowManager.sway.config;
           mod = cfg.modifier;
+
+          screenshot_cmd = ''
+                exec IMG=$(xdg-user-dir PICTURES)/$(date +'screenshot_%F-%T.png') && \
+                  slurp | grim -g - $IMG && \
+                  wl-copy -t image/png < $IMG
+              '';
         in
         {
           # Operations
@@ -139,6 +149,12 @@ in
           "${mod}+Return" = "exec ${cfg.terminal}";
           "${mod}+b"      = "exec firefox";         # Mod [B]rowser
           "${mod}+r"      = "exec ${cfg.menu}";     # Mod [R]un application
+
+          # Screenshots
+          # Taken from https://www.reddit.com/r/swaywm/comments/9q5a5l/comment/e8ahpwl/
+          "${mod}+Shift+s" = screenshot_cmd;
+          "print" = screenshot_cmd;
+
 
           # Move focus
           "${mod}+${cfg.left}"  = "focus left";
