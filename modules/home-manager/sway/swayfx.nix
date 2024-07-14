@@ -16,7 +16,6 @@ in
 
       extraConfig = ''
         # swayfx config
-        for_window [app_id="kitty"] blur enable
         blur_passes 4
         blur_radius 7
 
