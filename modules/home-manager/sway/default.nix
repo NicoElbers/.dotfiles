@@ -105,6 +105,9 @@ in
           # Auto start spotify 
           # TODO: See if I can put this in xdgAutostart
           { command = "spotify"; }
+
+          # Open up whatsapp on startup, put in scratchpad manually (sadge)
+          { command = "firefox --new-window https://web.whatsapp.com/"; }
         ];
 
         keybindings = 
