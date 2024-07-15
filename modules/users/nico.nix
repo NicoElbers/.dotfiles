@@ -1,5 +1,5 @@
 # TODO: Configure in here
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   imports = [
     ../zsh.nix
@@ -18,7 +18,7 @@
       packages = with pkgs; [
         kdePackages.kate
       ];
-      
+
     };
   };
 }

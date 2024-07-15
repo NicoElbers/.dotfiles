@@ -51,8 +51,5 @@ vim.opt.listchars:append({
 })
 vim.opt.list = true
 
-local colorschemeName = nixCats("colorscheme")
-if not require("nixCatsUtils").isNixCats then
-    colorschemeName = "onedark"
-end
+local colorschemeName = "catppuccin-mocha"
 vim.cmd.colorscheme(colorschemeName)

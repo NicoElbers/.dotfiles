@@ -5,7 +5,7 @@
 
 {
   imports =
-    [ 
+    [
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
@@ -15,12 +15,14 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/8e405647-6c79-447d-9db2-2e81b501619f";
+    {
+      device = "/dev/disk/by-uuid/8e405647-6c79-447d-9db2-2e81b501619f";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/71D5-4ADD";
+    {
+      device = "/dev/disk/by-uuid/71D5-4ADD";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };

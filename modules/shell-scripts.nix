@@ -1,5 +1,5 @@
 { lib, pkgs, ... }:
-let 
+let
   writers = import ./commons/writer.nix { inherit lib pkgs; };
   flake_path = ../.;
 in

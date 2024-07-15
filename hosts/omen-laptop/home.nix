@@ -1,7 +1,7 @@
 # TODO: Try to remove this file as much as possible
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
-let 
+let
   base = ../../modules/home-manager;
 in
 {
@@ -72,6 +72,7 @@ in
     (base + /alacritty.nix)
     (base + /nixpkgs)
     (base + /direnv.nix)
+    (base + /nvim)
   ];
 
   git.userName = "Nico Elbers";

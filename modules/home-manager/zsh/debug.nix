@@ -8,11 +8,11 @@ in
     programs.zsh = {
       initExtraFirst = ''
         zmodload zsh/zprof
-        '';
+      '';
 
       initExtra = ''
         zprof
-        '';
+      '';
     };
   };
 }

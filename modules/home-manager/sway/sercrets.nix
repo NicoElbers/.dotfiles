@@ -1,7 +1,7 @@
 { lib, config, ... }:
-let 
+let
   cfg = config;
-in 
+in
 {
   config = {
     # Enable secrets, you want this

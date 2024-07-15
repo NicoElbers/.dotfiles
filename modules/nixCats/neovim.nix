@@ -1,6 +1,6 @@
 # TODO: Work with a pure github reference instead of a path
-{pkgs, ...}:
-let 
+{ pkgs, ... }:
+let
   nixCats = builtins.getFlake (toString ./config);
 in
 {

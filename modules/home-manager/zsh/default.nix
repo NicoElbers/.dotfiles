@@ -35,7 +35,7 @@ in
         pinit = lib.getExe shell-scipts.pinit;
         zello = lib.getExe shell-scipts.zello;
       };
-      
+
       plugins = [
         {
           name = "zsh-nix-shell";

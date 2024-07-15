@@ -10,22 +10,23 @@
 # imports from having import naming conflicts with your own.
 
 /*
-This file imports overlays defined in the following format.
-Plugins will still only be downloaded if included in a category.
-You may copy paste this example into a new file and then import that file here.
+  This file imports overlays defined in the following format.
+  Plugins will still only be downloaded if included in a category.
+  You may copy paste this example into a new file and then import that file here.
 */
 # Example overlay:
 /*
-importName: inputs: let
+  importName: inputs: let
   overlay = self: super: { 
-    ${importName} = {
+  ${importName} = {
       # define your overlay derivations here
-    };
   };
-in
-overlay
+  };
+  in
+  overlay
 */
-inputs: let 
+inputs:
+let
   overlaySet = {
 
     # this is how you would add another overlay file

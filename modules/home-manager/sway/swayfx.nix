@@ -2,9 +2,9 @@
 
 with lib;
 
-let 
+let
   cfg = config.sway-cfg.swayfx;
-in 
+in
 {
   options.sway-cfg.swayfx = {
     enable = mkEnableOption "swayfx config";
@@ -20,7 +20,7 @@ in
         blur_radius 7
 
         corner_radius 10
-        '';
+      '';
     };
   };
 }

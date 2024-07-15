@@ -1,5 +1,5 @@
 # TODO: Decide if this is better moved to ./users
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./bluetooth.nix
@@ -17,29 +17,29 @@
 
     # TODO: Add more, like compiler and shit. 
     environment.systemPackages = with pkgs; [
-        # Essentials
-        vim       # Edit files
-        git       # Pull down config
-        wget      # Download stuff if required
+      # Essentials
+      vim # Edit files
+      git # Pull down config
+      wget # Download stuff if required
 
-        # FIXME: Find an alternative to alacritty
-        alacritty # Terminal
+      # FIXME: Find an alternative to alacritty
+      alacritty # Terminal
 
-        # Great utilities
-        bat
-        wl-clipboard
-        htop
+      # Great utilities
+      bat
+      wl-clipboard
+      htop
 
-        # Safe to have available
-        # FIXME: Either enable polkit here or remove it from here
-        # I'm opting to remove it tbh; more minimal
-        polkit
+      # Safe to have available
+      # FIXME: Either enable polkit here or remove it from here
+      # I'm opting to remove it tbh; more minimal
+      polkit
 
-        # Useful applications
-        # FIXME: move into ./user honestly
-        # Maybe add into "./useful applications" or smth
-        spotify
-        bitwarden-desktop
+      # Useful applications
+      # FIXME: move into ./user honestly
+      # Maybe add into "./useful applications" or smth
+      spotify
+      bitwarden-desktop
     ];
 
     fonts = {
@@ -56,7 +56,7 @@
         defaultFonts = {
           monospace = [ "FiraCode Nerd Font Mono" ];
           sansSerif = [ "FiraCode Nerd Font Propo" ];
-          serif     = [ "Liberation Serif" ];
+          serif = [ "Liberation Serif" ];
         };
       };
     };
@@ -65,13 +65,20 @@
     # Set browser
     programs.firefox.enable = true;
     xdg.mime.defaultApplications = {
-      "text/html"                 = "firefox.desktop";
-      "x-scheme-handler/http"     = "firefox.desktop";
-      "x-scheme-handler/https"    = "firefox.desktop";
-      "x-scheme-handler/about"    = "firefox.desktop";
-      "x-scheme-handler/unknown"  = "firefox.desktop";
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
     };
     environment.sessionVariables.DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox";
-  }; 
 
+    environment.etc."current-system-packages".text =
+      let
+        packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+        sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+        formatted = builtins.concatStringsSep "\n" sortedUnique;
+      in
+      formatted;
+  };
 }

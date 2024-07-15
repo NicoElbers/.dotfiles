@@ -1,6 +1,6 @@
 # TODO: See how much of this I can remove
 { lib, pkgs, ... }:
-let 
+let
   sway-nvidia = pkgs.writeTextFile {
     name = "sway-nvidia";
     destination = "/share/wayland-sessions/sway-nvidia.desktop";

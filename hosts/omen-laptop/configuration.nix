@@ -4,18 +4,18 @@
 
 { config, system, pkgs, inputs, ... }:
 
-let 
+let
   base = ../../modules;
   hardware = inputs.nixos-hardware;
 in
 {
   imports =
-    [ 
+    [
       # Hardware specific conifig
       ./hardware-configuration.nix
       hardware.nixosModules.omen-16-n0280nd
       ./bootloader.nix
-      
+
       # Home manager
       inputs.home-manager.nixosModules.default
 
@@ -73,7 +73,7 @@ in
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  
+
 
   # Configure keymap in X11
   # TODO: See if this needs to be removed
@@ -107,10 +107,10 @@ in
 
   home-manager = {
     useGlobalPkgs = true;
-  
+
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "nico" = import ./home.nix;
+      "nico" = { ... }: { imports = [ ./home.nix ]; };
     };
   };
 
@@ -121,9 +121,9 @@ in
     # # Get NM to work?
     # networkmanagerapplet
 
-    vim 
+    vim
     wget
-    kitty   
+    kitty
     git
     polkit
     neofetch
