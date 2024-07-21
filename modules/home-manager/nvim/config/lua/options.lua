@@ -51,5 +51,5 @@ vim.opt.listchars:append({
 })
 vim.opt.list = true
 
-local colorschemeName = "catppuccin-mocha"
-vim.cmd.colorscheme(colorschemeName)
+-- local colorschemeName = "catppuccin-mocha"
+-- vim.cmd.colorscheme(colorschemeName)

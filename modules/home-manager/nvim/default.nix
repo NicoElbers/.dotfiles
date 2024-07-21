@@ -1,11 +1,7 @@
-{ pkgs, config, inputs, ... }:
+{ lib, pkgs, config, inputs, ... }:
 
 {
   config = {
-    home.sessionVariables = {
-      NIXOS = "true";
-    };
-
     programs.neovim = {
       enable = true;
       viAlias = true;
@@ -112,10 +108,36 @@
       ];
     };
 
+    home.sessionVariables = {
+      NIXOS = "true";
+    };
 
-    xdg.configFile.nvim = {
+    xdg.configFile.nvim = 
+    let
+      plugins = config.programs.neovim.plugins;
+
+      path_strs = builtins.map (plugin: "${plugin}") plugins;
+      paths = builtins.concatStringsSep ";" path_strs;
+
+      pname_strs = builtins.map (plugin: "${plugin.pname}") plugins;
+      pname = builtins.concatStringsSep ";" pname_strs;
+
+      version_strs = builtins.map (plugin: "${plugin.version}") plugins;
+
+      paired_strs = lib.zipListsWith (a: b: a + "|" + b) pname_strs version_strs;
+      tripple_strs = lib.zipListsWith (a: b: a + "|" + b) paired_strs path_strs;
+
+      tripples = builtins.concatStringsSep ";" tripple_strs;
+
+    in 
+    {
       source = ./config;
       recursive = true;
+      onChange = ''
+        echo "${paths}" > /tmp/nvim.paths
+        echo "${pname}" > /tmp/nvim.pnames
+        echo "${tripples}" > /tmp/nvim.pairs
+      '';
     };
   };
 }
