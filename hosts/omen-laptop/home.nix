@@ -88,8 +88,10 @@ in
     debug = false;
 
     ohMyPosh = {
-      enable = true;
+      enable = false;
     };
+    
+    starship.enable = true;
   };
   direnv-cfg.enable = true;
 

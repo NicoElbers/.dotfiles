@@ -8,12 +8,14 @@ in
   imports = [
     ./debug.nix
     ./ohMyPosh.nix
+    ./starship.nix
   ];
 
   options.zsh-cfg = with lib; {
     enable = mkEnableOption "Zsh configuration";
     debug = mkEnableOption "Debug zsh";
     ohMyPosh.enable = mkEnableOption "custom ohMyPosh prompt";
+    starship.enable = mkEnableOption "custom starship prompt";
   };
 
   config = lib.mkIf cfg.enable {
