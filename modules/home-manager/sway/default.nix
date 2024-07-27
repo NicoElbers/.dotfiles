@@ -27,7 +27,7 @@ in
 
     terminal = mkOption {
       type = types.str;
-      default = "alacritty";
+      default = "kitty";
     };
 
     menu = mkOption {

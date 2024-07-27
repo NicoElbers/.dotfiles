@@ -72,6 +72,7 @@ in
     (base + /alacritty.nix)
     (base + /nixpkgs)
     (base + /direnv.nix)
+    (base + /kitty.nix)
   ];
 
   git.userName = "Nico Elbers";
