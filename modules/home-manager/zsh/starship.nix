@@ -14,7 +14,7 @@ in
         right_format = "$cmd_duration";
 
         scan_timeout = 10;
-        command_timeout = 100;
+        command_timeout = 300;
 
         os = {
           disabled = false;
