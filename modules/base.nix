@@ -1,5 +1,5 @@
 # TODO: Decide if this is better moved to ./users
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   imports = [
     ./bluetooth.nix
@@ -21,6 +21,7 @@
       vim # Edit files
       git # Pull down config
       wget # Download stuff if required
+      inputs.nvim.packages.${pkgs.system}.default
 
       # FIXME: Find an alternative to alacritty
       alacritty # Terminal

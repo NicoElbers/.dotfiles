@@ -22,9 +22,6 @@ in
       # Base config
       (base + /base.nix)
 
-      # FIXME: Move into base
-      (base + /nixCats/neovim.nix)
-
       # Users
       (base + /users/nico.nix)
 
