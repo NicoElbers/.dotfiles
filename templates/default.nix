@@ -11,4 +11,8 @@
     path = ./c;
     description = "A Nix-flake-based C/C++ development environment";
   };
+  c-zig = {
+    path = ./c-zig;
+    description = "A Nix-flake-based C/C++ development environment, with zig as build system";
+  };
 }
