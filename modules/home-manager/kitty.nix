@@ -16,7 +16,7 @@
         enableZshIntegration = true;
       };
 
-      theme = "Rosé Pine Moon";
+      theme = "Catppuccin-Mocha";
 
       settings = {
         enable_audio_bell = false;
