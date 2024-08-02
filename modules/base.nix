@@ -27,7 +27,7 @@
       vim # Edit files
       git # Pull down config
       wget # Download stuff if required
-      inputs.nvim.packages.${pkgs.system}.default
+      inputs.nvim.packages.${system}.default
 
       # FIXME: Find an alternative to alacritty
       alacritty # Terminal
@@ -37,6 +37,9 @@
       bat
       wl-clipboard
       htop
+      tree
+      hyperfine
+      kalker
 
       # Safe to have available
       # FIXME: Either enable polkit here or remove it from here
