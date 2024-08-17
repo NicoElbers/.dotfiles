@@ -33,7 +33,7 @@ in
       oh-my-zsh.enable = true;
 
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --impure --flake ~/.dotfiles#omen";
+        rebuild = "nixos-rebuild switch --use-remote-sudo --impure --flake ~/.dotfiles#omen";
         pinit = lib.getExe shell-scipts.pinit;
         zello = lib.getExe shell-scipts.zello;
       };
