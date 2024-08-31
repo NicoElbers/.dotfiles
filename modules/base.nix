@@ -40,6 +40,9 @@
       tree
       hyperfine
       kalker
+      unzip
+      zip
+      ripgrep
 
       # Safe to have available
       # FIXME: Either enable polkit here or remove it from here
