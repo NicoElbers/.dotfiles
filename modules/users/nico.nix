@@ -16,7 +16,9 @@
       shell = pkgs.zsh;
 
       packages = with pkgs; [
-        kdePackages.kate
+        gimp
+        spotify
+        bitwarden-desktop
       ];
 
     };

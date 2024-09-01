@@ -48,12 +48,6 @@
       # FIXME: Either enable polkit here or remove it from here
       # I'm opting to remove it tbh; more minimal
       polkit
-
-      # Useful applications
-      # FIXME: move into ./user honestly
-      # Maybe add into "./useful applications" or smth
-      spotify
-      bitwarden-desktop
     ];
 
     fonts = {
