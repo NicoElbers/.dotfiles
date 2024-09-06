@@ -21,6 +21,12 @@
       allowUnfree = true;
     };
 
+    documentation = {
+      dev.enable = true;
+      man.enable = true;
+      nixos.enable = true;
+    };
+
     # TODO: Add more, like compiler and shit. 
     environment.systemPackages = with pkgs; [
       # Essentials
@@ -43,6 +49,10 @@
       unzip
       zip
       ripgrep
+
+      # man pages
+      man-pages
+      man-pages-posix
 
       # Safe to have available
       # FIXME: Either enable polkit here or remove it from here
