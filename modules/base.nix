@@ -79,6 +79,9 @@
       };
     };
 
+    # Enable nix-ld, very useful for running blobs
+    programs.nix-ld.enable = true;
+
     # TODO: See if I can make this more configurable
     # Set browser
     programs.firefox.enable = true;
