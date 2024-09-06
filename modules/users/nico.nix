@@ -8,14 +8,22 @@
   config = {
     programs.light.enable = true;
 
+    virtualisation.libvirtd.enable = true; 
+    programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
+      virt-manager
       eduvpn-client
     ];
 
     users.users.nico = {
       isNormalUser = true;
       description = "Nico";
-      extraGroups = [ "video" "networkmanager" "wheel" ];
+      extraGroups = [ 
+        "video" 
+        "networkmanager" 
+        "wheel" 
+        "libvirtd"
+      ];
 
       shell = pkgs.zsh;
 
