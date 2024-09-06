@@ -8,6 +8,10 @@
   config = {
     programs.light.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      eduvpn-client
+    ];
+
     users.users.nico = {
       isNormalUser = true;
       description = "Nico";
