@@ -35,7 +35,10 @@ in
       shellAliases = {
         rebuild = "nixos-rebuild switch --use-remote-sudo --impure --flake ~/.dotfiles#omen";
         pinit = lib.getExe shell-scipts.pinit;
-        zello = lib.getExe shell-scipts.zello;
+        gl = "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
+        gd = "git diff";
+        gdc = "git diff --cached";
+        gp = "git add -p";
       };
 
       plugins = [
