@@ -13,6 +13,7 @@
     environment.systemPackages = with pkgs; [
       virt-manager
       eduvpn-client
+      keepassxc
     ];
 
     users.users.nico = {
