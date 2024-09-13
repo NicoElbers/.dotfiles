@@ -30,6 +30,11 @@
         gimp
         spotify
         bitwarden-desktop
+
+        # Utilities
+        killall
+        tldr
+
         # Uni VPN
         eduvpn-client
 
