@@ -37,14 +37,7 @@ in
   };
 
   config = lib.mkIf sway-cfg.enable {
-    home.packages = with pkgs;[
-      pamixer
-      playerctl
-
-      grim
-      slurp
-      xdg-user-dirs
-    ];
+    home.packages = [ ];
 
     # Enable statusbar
     i3status-rust.enable = lib.mkDefault true;
@@ -112,6 +105,9 @@ in
 
           # Open up whatsapp on startup, put in scratchpad manually (sadge)
           { command = "firefox --new-window https://web.whatsapp.com/"; }
+
+          # Startup gammastep
+          { command = "${lib.getExe pkgs.gammastep} -O 3500"; }
         ];
 
         keybindings =
@@ -120,9 +116,9 @@ in
             mod = cfg.modifier;
 
             screenshot_cmd = ''
-              exec IMG=$(xdg-user-dir PICTURES)/$(date +'screenshot_%F-%T.png') && \
-                slurp | grim -g - $IMG && \
-                wl-copy -t image/png < $IMG
+              exec IMG=$(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(${pkgs.coreutils}/bin/date +'screenshot_%F-%T.png') && \
+                ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $IMG && \
+                ${pkgs.wl-clipboard}/bin/wl-copy -t image/png < $IMG
             '';
           in
           {
@@ -193,19 +189,19 @@ in
             "${mod}+Shift+0" = "move container to workspace number ${ws10}";
 
             # Brightness
-            "XF86MonBrightnessDown" = "exec light -U 10";
-            "XF86MonBrightnessUp" = "exec light -A 10";
+            "XF86MonBrightnessDown" = "exec ${lib.getExe pkgs.light} -U 10";
+            "XF86MonBrightnessUp" = "exec ${lib.getExe pkgs.light} -A 10";
 
             # Volume
-            "XF86AudioRaiseVolume" = "exec pamixer --allow-boost -i 5";
-            "XF86AudioLowerVolume" = "exec pamixer --allow-boost -d 5";
-            "XF86AudioMute" = "exec pamixer -t";
+            "XF86AudioRaiseVolume" = "exec ${lib.getExe pkgs.pamixer} --allow-boost -i 5";
+            "XF86AudioLowerVolume" = "exec ${lib.getExe pkgs.pamixer} --allow-boost -d 5";
+            "XF86AudioMute" = "exec ${lib.getExe pkgs.pamixer} -t";
 
             # Media player
-            "XF86AudioPlay" = "exec playerctl play-pause";
-            "XF86AudioPause" = "exec playerctl play-pause";
-            "XF86AudioNext" = "exec playerctl next";
-            "XF86AudioPrev" = "exec playerctl previous";
+            "XF86AudioPlay" = "exec ${lib.getExe pkgs.playerctl} play-pause";
+            "XF86AudioPause" = "exec ${lib.getExe pkgs.playerctl} play-pause";
+            "XF86AudioNext" = "exec ${lib.getExe pkgs.playerctl} next";
+            "XF86AudioPrev" = "exec ${lib.getExe pkgs.playerctl} previous";
           };
       };
     };
