@@ -12,7 +12,6 @@
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
       virt-manager
-      keepassxc
     ];
 
     users.users.nico = {
@@ -33,6 +32,13 @@
         bitwarden-desktop
         # Uni VPN
         eduvpn-client
+
+        # Geeki
+        strongswan
+        openvpn
+        networkmanager-openvpn
+        networkmanager-l2tp
+        keepassxc
       ];
 
     };
