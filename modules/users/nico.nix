@@ -12,7 +12,6 @@
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
       virt-manager
-      eduvpn-client
       keepassxc
     ];
 
@@ -32,6 +31,8 @@
         gimp
         spotify
         bitwarden-desktop
+        # Uni VPN
+        eduvpn-client
       ];
 
     };

@@ -930,11 +930,11 @@
         "nv": "nv"
       },
       "locked": {
-        "lastModified": 1725985939,
-        "narHash": "sha256-HgGE4veKHLP69whn+6m1kpB+Vpl+EXctSRZrtK2aTSU=",
+        "lastModified": 1725986171,
+        "narHash": "sha256-FAWsVdk26nivnKld/E1IREBlaKGRbPW7YNxE1Pa8BLY=",
         "owner": "NicoElbers",
         "repo": "nvim-config",
-        "rev": "15af1e17bdaebb375852bb9eb47953022ec1e5ff",
+        "rev": "26f8d6d7add5ac61ed5d1966196d0136d76b07d5",
         "type": "github"
       },
       "original": {
