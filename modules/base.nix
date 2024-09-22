@@ -41,6 +41,7 @@
 
       # Great utilities
       bat
+      fd
       wl-clipboard
       htop
       tree
