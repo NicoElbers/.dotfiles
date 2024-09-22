@@ -4,3 +4,4 @@
 - Setup GPG
   - do `ssh-copy-id <this usrname>@<this hostname>` on another machine with the GPG keys
   - do `scp -r nico@archbtw:/home/<other ursname>/.gnupg ~/`
+- Add wallpapers in ~/Pictures/background

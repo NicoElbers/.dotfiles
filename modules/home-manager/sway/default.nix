@@ -14,6 +14,14 @@ let
   ws8 = "8";
   ws9 = "9";
   ws10 = "10";
+
+  bg-command = ''
+    ${lib.getExe pkgs.swaybg} -i \
+      $( \
+        ${lib.getExe pkgs.fd} . ~/Pictures/background -t f | \
+        ${pkgs.coreutils-full}/bin/shuf -n1 \
+      )
+  '';
 in
 {
   imports = [
@@ -101,13 +109,16 @@ in
 
           # Auto start spotify 
           # TODO: See if I can put this in xdgAutostart
-          { command = "spotify"; }
+          { command = "${pkgs.spotify}/bin/spotify"; }
 
           # Open up whatsapp on startup, put in scratchpad manually (sadge)
-          { command = "firefox --new-window https://web.whatsapp.com/"; }
+          { command = "${lib.getExe pkgs.firefox} --new-window https://web.whatsapp.com/"; }
 
           # Startup gammastep
           { command = "${lib.getExe pkgs.gammastep} -O 3500"; }
+
+          # Setup background
+          { command = bg-command; always = true; }
         ];
 
         keybindings =
