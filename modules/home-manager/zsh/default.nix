@@ -32,17 +32,32 @@ in
       syntaxHighlighting.enable = true;
       autocd = true;
 
-      initExtraFirst = ''
-          zsh_start_time=$(date +%s%3N)
+      initExtraFirst = /*bash*/ ''
+        zsh_start_time=$(date +%s%3N)
 
-          log_time() {
-            local current_time=$(date +%s%3N)
-            local elapsed=$((current_time - zsh_start_time))
-            echo "[''${elapsed}ms] $1"
-          }
+        log_time() {
+          local current_time=$(date +%s%3N)
+          local elapsed=$((current_time - zsh_start_time))
+          echo "[''${elapsed}ms] $1"
+        }
       '';
 
-      initExtra = ''
+      initExtra = /*bash*/ ''
+        # Allow for case insensitive matching
+        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} m:{a-z}={A-Z} r:|[._-]=* r:|=*'
+
+        # Select from menu
+        zstyle ':completion:*' menu select
+
+        setopt auto_menu
+        setopt complete_in_word
+
+        # Bind Shift-Tab to go backward in completion menu
+        bindkey "^[[Z" reverse-menu-complete
+
+        bindkey "^H" backward-word
+        bindkey "^L" forward-word
+
         log_time "startup time"
       '';
 
