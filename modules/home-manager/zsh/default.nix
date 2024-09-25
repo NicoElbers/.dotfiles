@@ -25,12 +25,26 @@ in
 
     programs.zsh = {
       enable = true;
-      enableCompletion = true;
 
+      enableCompletion = true;
+      enableVteIntegration = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      autocd = true;
 
-      oh-my-zsh.enable = true;
+      initExtraFirst = ''
+          zsh_start_time=$(date +%s%3N)
+
+          log_time() {
+            local current_time=$(date +%s%3N)
+            local elapsed=$((current_time - zsh_start_time))
+            echo "[''${elapsed}ms] $1"
+          }
+      '';
+
+      initExtra = ''
+        log_time "startup time"
+      '';
 
       shellAliases = {
         rebuild = "nixos-rebuild switch --use-remote-sudo --impure --flake ~/.dotfiles#omen";
@@ -40,7 +54,15 @@ in
         gd = "${lib.getExe pkgs.git} diff";
         gdc = "${lib.getExe pkgs.git} diff --cached";
         gp = "${lib.getExe pkgs.git} add -p";
-      };
+        ssh = "TERM=xterm-256color ${pkgs.openssh}/bin/ssh";
+
+        # Old oh-my-zsh aliases that I care about
+        ".." = "./..";
+        "..." = "./../..";
+        "...." = "./../../..";
+        "....." = "./../../../..";
+        "......" = "./../../../../..";
+        };
 
       plugins = [
         {
