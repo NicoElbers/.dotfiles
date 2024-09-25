@@ -21,7 +21,7 @@
       settings = {
         enable_audio_bell = false;
 
-        background_opacity = 65;
+        background_opacity="0.85";
       };
     };
   };
