@@ -33,13 +33,6 @@ in
       autocd = true;
 
       initExtraFirst = /*bash*/ ''
-        zsh_start_time=$(date +%s%3N)
-
-        log_time() {
-          local current_time=$(date +%s%3N)
-          local elapsed=$((current_time - zsh_start_time))
-          echo "[''${elapsed}ms] $1"
-        }
       '';
 
       initExtra = /*bash*/ ''
@@ -57,8 +50,6 @@ in
 
         bindkey "^H" backward-word
         bindkey "^L" forward-word
-
-        log_time "startup time"
       '';
 
       shellAliases = {
