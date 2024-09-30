@@ -16,6 +16,7 @@ let
   ws10 = "10";
 
   bg-command = ''
+    ${lib.getExe pkgs.killall} swaybg; \
     ${lib.getExe pkgs.swaybg} -i \
       $( \
         ${lib.getExe pkgs.fd} . ~/Pictures/background -t f | \
