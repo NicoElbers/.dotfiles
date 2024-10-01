@@ -14,6 +14,15 @@
       virt-manager
     ];
 
+    # Docker
+    virtualisation.docker = {
+      enable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
+
     users.users.nico = {
       isNormalUser = true;
       description = "Nico";
