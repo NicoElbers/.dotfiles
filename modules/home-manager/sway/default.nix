@@ -15,11 +15,12 @@ let
   ws9 = "9";
   ws10 = "10";
 
+  bg-dir = "~/Pictures/background";
   bg-command = ''
-    ${lib.getExe pkgs.killall} swaybg; \
-    ${lib.getExe pkgs.swaybg} -i \
+    $(${lib.getExe pkgs.killall} swaybg || true) \
+      && ${lib.getExe pkgs.swaybg} -i \
       $( \
-        ${lib.getExe pkgs.fd} . ~/Pictures/background -t f | \
+        ${lib.getExe pkgs.fd} . ${bg-dir} -t f | \
         ${pkgs.coreutils-full}/bin/shuf -n1 \
       )
   '';
