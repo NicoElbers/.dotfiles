@@ -129,7 +129,7 @@ in
             mod = cfg.modifier;
 
             screenshot_cmd = ''
-              exec IMG=$(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(${pkgs.coreutils}/bin/date +'screenshot_%F-%T.png') && \
+              exec IMG=$(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/screenshots/$(${pkgs.coreutils}/bin/date +'screenshot_%F-%T.png') && \
                 ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $IMG && \
                 ${pkgs.wl-clipboard}/bin/wl-copy -t image/png < $IMG
             '';
