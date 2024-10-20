@@ -69,6 +69,7 @@ in
     (base + /git.nix)
     (base + /sway)
     (base + /zsh)
+    (base + /lf)
     (base + /alacritty.nix)
     (base + /nixpkgs)
     (base + /direnv.nix)
