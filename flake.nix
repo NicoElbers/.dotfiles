@@ -32,7 +32,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let
       lib = nixpkgs.lib;
 
@@ -52,6 +52,8 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+      
+      overlays = import ./overlays.nix {inherit inputs;};
 
       templates = import ./templates;
 
