@@ -62,6 +62,9 @@ in
         gp = "${lib.getExe pkgs.git} add -p";
         ssh = "TERM=xterm-256color ${pkgs.openssh}/bin/ssh";
 
+        # Cat images using the kitty image protocol
+        icat = "${lib.getBin pkgs.kitty} +kitten icat";
+
         # Old oh-my-zsh aliases that I care about
         ".." = "./..";
         "..." = "./../..";
