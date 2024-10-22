@@ -50,6 +50,30 @@ in
 
         bindkey "^H" backward-word
         bindkey "^L" forward-word
+
+        # Properly expand "..." and the likes
+        function expand-dots() {
+          local MATCH
+          if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
+            LBUFFER=$LBUFFER:fs%\.\.\.%../..%
+          fi
+        }
+
+        function expand-dots-then-expand-or-complete() {
+          zle expand-dots
+          zle expand-or-complete
+        }
+
+        function expand-dots-then-accept-line() {
+          zle expand-dots
+          zle accept-line
+        }
+
+        zle -N expand-dots
+        zle -N expand-dots-then-expand-or-complete
+        zle -N expand-dots-then-accept-line
+        bindkey '^I' expand-dots-then-expand-or-complete
+        bindkey '^M' expand-dots-then-accept-line
       '';
 
       shellAliases = {
@@ -64,13 +88,6 @@ in
 
         # Cat images using the kitty image protocol
         icat = "${lib.getBin pkgs.kitty} +kitten icat";
-
-        # Old oh-my-zsh aliases that I care about
-        ".." = "..";
-        "..." = "../..";
-        "...." = "../../..";
-        "....." = "../../../..";
-        "......" = "../../../../..";
         };
 
       plugins = [
