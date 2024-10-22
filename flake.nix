@@ -11,21 +11,6 @@
 
     nixos-hardware.url = "github:NicoElbers/nixos-hardware/master";
 
-    zig = {
-      url = "github:mitchellh/zig-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zls = {
-      url = "github:zigtools/zls";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nvim = {
       url = "github:NicoElbers/nvim-config";
       inputs.nixpkgs.follows = "nixpkgs";
