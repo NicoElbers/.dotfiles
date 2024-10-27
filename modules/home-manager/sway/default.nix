@@ -30,6 +30,7 @@ in
     ./i3status-rust.nix
     ./sercrets.nix
     ./swayfx.nix
+    ./swaync.nix
   ];
 
   options.sway-cfg = with lib;{
