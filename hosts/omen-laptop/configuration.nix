@@ -105,30 +105,13 @@ in
   home-manager = {
     useGlobalPkgs = true;
 
+    backupFileExtension = "bak";
+
     extraSpecialArgs = { inherit inputs; };
     users = {
       "nico" = { ... }: { imports = [ ./home.nix ]; };
     };
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # FIXME: Move into base
-  environment.systemPackages = with pkgs; [
-    # # Get NM to work?
-    # networkmanagerapplet
-
-    vim
-    wget
-    kitty
-    git
-    polkit
-    neofetch
-    ripgrep
-    clinfo
-
-    discord
-  ];
 
   #FIXME: put into base
   security.polkit.enable = true;

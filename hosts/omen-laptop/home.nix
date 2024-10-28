@@ -66,15 +66,16 @@ in
 
   # TODO: Make a general 'include' file, and configure more
   imports = [
-    (base + /git.nix)
-    (base + /sway)
-    (base + /zsh)
-    (base + /lf)
-    (base + /alacritty.nix)
-    (base + /nixpkgs)
-    (base + /direnv.nix)
-    (base + /kitty.nix)
-    (base + /zathura.nix)
+    # (base + /git.nix)
+    # (base + /sway)
+    # (base + /zsh)
+    # (base + /lf)
+    # (base + /alacritty.nix)
+    # (base + /nixpkgs)
+    # (base + /direnv.nix)
+    # (base + /kitty.nix)
+    # (base + /zathura.nix)
+    (base + /base.nix)
   ];
 
   git.userName = "Nico Elbers";

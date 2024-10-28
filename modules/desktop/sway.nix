@@ -1,4 +1,4 @@
-# TODO: See how much of this I can remove
+#TODO: See how much of this I can remove
 { lib, pkgs, ... }:
 let
   sway-nvidia = pkgs.writeTextFile {
@@ -33,7 +33,7 @@ in
   services.gnome.gnome-keyring.enable = true;
   environment.systemPackages = with pkgs; [
     rofi
-    networkmanagerapplet
+    polkit
   ];
 
   security.polkit.enable = lib.mkForce true;

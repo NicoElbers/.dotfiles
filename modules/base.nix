@@ -3,6 +3,7 @@
 {
   imports = [
     ./bluetooth.nix
+    ./services.nix
     ./sddm
   ];
 
@@ -27,40 +28,50 @@
       nixos.enable = true;
     };
 
-    # TODO: Add more, like compiler and shit. 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; 
+    let
+      my-nvim = inputs.nvim.packages.${system}.default;
+    in [
       # Essentials
       vim # Edit files
       git # Pull down config
       wget # Download stuff if required
-      inputs.nvim.packages.${system}.default
+      # inputs.nvim.packages.${system}.default # My neovim config
+      my-nvim # neovim <3
+
+      # networking
+      networkmanagerapplet
 
       # FIXME: Find an alternative to alacritty
-      alacritty # Terminal
-      kitty
+      # alacritty # Terminal
+      kitty # Terminal
 
       # Great utilities
-      bat
-      fd
-      wl-clipboard
-      htop
-      tree
-      hyperfine
-      kalker
-      unzip
-      zip
-      ripgrep
+      bat # cat but colors
+      fd # find but simply better
+      wl-clipboard # Cliboards are useful
+      htop # I like to see why my device is burning
+      tree # Easy FSH visualization 
+
+      hyperfine # TODO: move to user
+
+      kalker # MATH
+      unzip # unzipping archives is useful
+      zip # zipping archives is useful
+      ripgrep # grep but better
 
       # man pages
       man-pages
       man-pages-posix
 
       # Safe to have available
-      # FIXME: Either enable polkit here or remove it from here
-      # I'm opting to remove it tbh; more minimal
       polkit
     ];
 
+    # Safe to have available
+    security.polkit.enable = true;
+
+    # Fonts :)
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
@@ -83,24 +94,8 @@
     # Enable nix-ld, very useful for running blobs
     programs.nix-ld.enable = true;
 
+    # TODO: move to user
     # TODO: See if I can make this more configurable
     # Set browser
-    programs.firefox.enable = true;
-    xdg.mime.defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-    };
-    environment.sessionVariables.DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox";
-
-    environment.etc."current-system-packages".text =
-      let
-        packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-        sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-        formatted = builtins.concatStringsSep "\n" sortedUnique;
-      in
-      formatted;
   };
 }
