@@ -38,7 +38,7 @@ in
 
     terminal = mkOption {
       type = types.str;
-      default = "kitty";
+      default = "ghostty";
     };
 
     menu = mkOption {

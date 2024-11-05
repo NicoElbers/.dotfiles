@@ -31,6 +31,7 @@
     environment.systemPackages = with pkgs; 
     let
       my-nvim = inputs.nvim.packages.${system}.default;
+      ghostty = inputs.ghostty.packages.${system}.default;
     in [
       # Essentials
       vim # Edit files
@@ -45,6 +46,7 @@
       # FIXME: Find an alternative to alacritty
       # alacritty # Terminal
       kitty # Terminal
+      ghostty # Better terminal
 
       # Great utilities
       bat # cat but colors

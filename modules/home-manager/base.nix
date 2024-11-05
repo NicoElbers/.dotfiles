@@ -11,5 +11,6 @@
     ./lazygit.nix
     ./zathura.nix
     ./firefox.nix
+    ./ghostty.nix
   ];
 }
