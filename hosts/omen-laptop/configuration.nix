@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, system, pkgs, inputs, ... }:
+{ config, lib, system, pkgs, inputs, ... }:
 
 let
   base = ../../modules;
@@ -34,9 +34,15 @@ in
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.finegrained = true;
-    open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.latest;
+
+    # prime = {
+    #   offload = {
+    #     enable = lib.mkOverride 1000 false;
+    #   };
+    #   sync.enable = lib.mkOverride 990 true;
+    # };
   };
 
   networking.hostName = "omen"; # Define your hostname.

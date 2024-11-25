@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NicoElbers/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nvim = {
       url = "github:NicoElbers/nvim-config";
