@@ -43,6 +43,7 @@ in
     extraOptions = [
       "--unsupported-gpu"
     ];
+    extraPackages = with pkgs; [ swaylock swayidle kitty dmenu ];
   };
 
   # Setup session for swayfx
