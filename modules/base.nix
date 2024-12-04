@@ -78,7 +78,7 @@
       enableDefaultPackages = true;
       packages = with pkgs; [
         # Nerdfont
-        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+        nerd-fonts.fira-code
 
         # Asian languages
         noto-fonts-cjk-sans
