@@ -51,6 +51,10 @@ in
         bindkey "^H" backward-word
         bindkey "^L" forward-word
 
+        autoload -z edit-command-line
+        zle -N edit-command-line
+        bindkey "^X" edit-command-line
+
         # Properly expand "..." and the likes
         function expand-dots() {
           local MATCH
