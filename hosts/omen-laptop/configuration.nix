@@ -35,7 +35,9 @@ in
     modesetting.enable = true;
     powerManagement.finegrained = true;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    # FIXME: 6.12 kernel issues
+    # package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
     # prime = {
     #   offload = {
