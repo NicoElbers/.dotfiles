@@ -31,6 +31,7 @@
         "networkmanager" 
         "wheel" 
         "libvirtd"
+        "dialout"
       ];
 
       shell = pkgs.zsh;
