@@ -25,12 +25,12 @@ xdg.configFile."ghostty/config".text = lib.generators.toKeyValue {
       shell-integration-features = "sudo";
       
       gtk-single-instance = true;
+      gtk-adwaita = false;
+      window-decoration = false;
 
       bold-is-bright = true;
 
       auto-update = "off";
-
-      window-decoration = false;
 
       mouse-hide-while-typing = true;
 
