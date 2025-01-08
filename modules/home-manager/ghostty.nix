@@ -50,10 +50,11 @@ xdg.configFile."ghostty/config".text = lib.generators.toKeyValue {
           # Selection
           "ctrl+shift+a=select_all" 
 
-          "shift+h=adjust_selection:right" 
-          "shift+j=adjust_selection:down" 
-          "shift+k=adjust_selection:up" 
-          "shift+l=adjust_selection:left" 
+          # Never worked, and fucks up my typing
+          # "shift+h=adjust_selection:right" 
+          # "shift+j=adjust_selection:down" 
+          # "shift+k=adjust_selection:up" 
+          # "shift+l=adjust_selection:left" 
 
           # Font size
           "ctrl+plus=increase_font_size:1" 
