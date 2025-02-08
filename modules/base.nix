@@ -24,7 +24,9 @@
 
     documentation = {
       dev.enable = true;
-      man.enable = true;
+      man = {
+        enable = true;
+      };
       nixos.enable = true;
     };
 
@@ -63,6 +65,7 @@
       ripgrep # grep but better
 
       # man pages
+      linux-manual
       man-pages
       man-pages-posix
 
