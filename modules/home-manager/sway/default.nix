@@ -16,6 +16,8 @@ let
   ws10 = "10";
 
   bg-dir = "~/Pictures/background";
+
+  # FIXME: The killall is currently broken
   bg-command = ''
     $(${lib.getExe pkgs.killall} swaybg || true) \
       && ${lib.getExe pkgs.swaybg} -i \
