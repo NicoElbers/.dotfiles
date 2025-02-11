@@ -6,8 +6,6 @@
     canTouchEfiVariables = true;
   };
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-
   boot.loader.grub = {
     enable = true;
     device = "nodev";
