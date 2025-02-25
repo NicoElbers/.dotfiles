@@ -91,7 +91,7 @@ in
 
   # Enable sound with pipewire.
   # FIXME: move into module
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -110,7 +110,7 @@ in
   # services.xserver.libinput.enable = true;
 
   home-manager = {
-    useGlobalPkgs = true;
+    # useGlobalPkgs = true;
 
     backupFileExtension = "bak";
 
