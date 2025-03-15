@@ -17,9 +17,8 @@ let
 
   bg-dir = "~/Pictures/background";
 
-  # FIXME: The killall is currently broken
   bg-command = ''
-    $(${lib.getExe pkgs.killall} swaybg || true) \
+    $(pgrep swaybg | xargs kill || true) \
       && ${lib.getExe pkgs.swaybg} -i \
       $( \
         ${lib.getExe pkgs.fd} . ${bg-dir} -t f | \
@@ -100,6 +99,7 @@ in
             click_method = "clickfinger";
             tap = "enabled";
             tap_button_map = "lrm";
+            dwt = "disabled";
           };
         };
 
