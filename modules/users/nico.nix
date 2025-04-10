@@ -43,6 +43,7 @@
 
         # Communication
         discord
+        signal-desktop
 
         # Utilities
         killall
