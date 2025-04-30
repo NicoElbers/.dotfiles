@@ -57,6 +57,9 @@ in
   # FIXME: Move into base
   networking.networkmanager.enable = true;
 
+  # Save 5 seconds booting
+  systemd.services."NetworkManager-wait-online".enable = false;
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
