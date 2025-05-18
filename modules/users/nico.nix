@@ -37,7 +37,7 @@
       shell = pkgs.zsh;
 
       packages = with pkgs; [
-        gimp
+        gimp3
         spotify
         bitwarden-desktop
 
