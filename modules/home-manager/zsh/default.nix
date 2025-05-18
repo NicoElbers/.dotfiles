@@ -35,7 +35,7 @@ in
       initExtraFirst = /*bash*/ ''
       '';
 
-      initExtra = /*bash*/ ''
+      initContent = /*bash*/ ''
         # Allow for case insensitive matching
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} m:{a-z}={A-Z} r:|[._-]=* r:|=*'
 
