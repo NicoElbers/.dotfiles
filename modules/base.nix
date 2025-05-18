@@ -18,6 +18,8 @@
       options = "--delete-older-than 30d";
     };
 
+    boot.tmp.cleanOnBoot = true;
+
     nixpkgs.config = {
       allowUnfree = true;
     };
