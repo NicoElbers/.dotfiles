@@ -5,6 +5,7 @@
     ./sway
     ./zsh
 
+    ./hyprland.nix
     ./direnv.nix
     ./git.nix
     ./kitty.nix

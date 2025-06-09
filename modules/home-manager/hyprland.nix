@@ -1,137 +1,144 @@
-# TODO: remove
-{ pkgs, ... }:
+{pkgs, ...}:
 {
-  # home.packages = [ pkgs.xclip ];
-  # 
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   xwayland.enable = true;
-  #   settings = {
-  #     "$M" = "SUPER";
-  #     "$TERMINAL" = "kitty";
+  programs.kitty.enable = true; # required for the default Hyprland config
+  wayland.windowManager.hyprland.enable = true; # enable Hyprland
 
-  #     binde = [
-  #       ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-  #         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-  #         ", XF86MonBrightnessUp, exec, brightnessctl -d amdgpu_bl0 s +10"
-  #         ", XF86MonBrightnessDown, exec, brightnessctl -d amdgpu_bl0 s 10-"
-  #         "$M CONTROL, H, resizeactive, -25 0"
-  #         "$M CONTROL, L, resizeactive, 25 0"
-  #         "$M CONTROL, K, resizeactive, 0 -25"
-  #         "$M CONTROL, J, resizeactive, 0 25"
-  #     ];
+  # Optional, hint Electron apps to use Wayland:
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
+  home.sessionVariables.OZONE_PLATFORM = "wayland ";
 
-  #     bindm = [
-  #       "$M, mouse:272, movewindow"
-  #         "$M, mouse:273, resizewindow"
-  #     ];
+  home.packages = with pkgs; [
+    hyprpicker
+    hyprshot
+    swappy
+    hyprpaper
+    hyprpolkitagent
+  ];
 
-  #     bind = [
+  services.hyprpaper = {
+    enable = true;
+  };
 
-  #       # Launch standard apps
-  #       "$M, W, exec, $BROWSER"
-  #       "$M ENTER, exec, $TERMINAL"
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    preload = ~/Pictures/background/freiren.jpg
+    wallpaper = eDP-1,~/Pictures/background/freiren.jpg
+  '';
 
-  #       # Window management
-  #       "$M, F, fullscreen,"
-  #       "$M, Q, killactive,"
-  #       "$M, G, togglefloating,"
+  wayland.windowManager.hyprland.settings = {
+    exec-once = [
+      "systemctl --user start hyprpolkitagent"
+    ];
 
-  #       # MOVE FOCUS with M + vim keys
-  #       "$M, H, movefocus, l"
-  #       "$M, L, movefocus, r"
-  #       "$M, K, movefocus, u"
+    "$mod" = "SUPER";
+    bind =
+      [
+        # Common
+        "$mod, B, exec, firefox"
+        "$mod, RETURN, exec, ghostty"
+        "$mod, R, exec, rofi -show drun"
 
-  #       # SWITCH WORKSPACES with M + [0-9]
-  #       "$M, 1, workspace, 1"
-  #       "$M, 2, workspace, 2"
-  #       "$M, 3, workspace, 3"
-  #       "$M, 4, workspace, 4"
-  #       "$M, 5, workspace, 5"
-  #       "$M, 6, workspace, 6"
-  #       "$M, 7, workspace, 7"
-  #       "$M, 8, workspace, 8"
-  #       "$M, 9, workspace, 9"
-  #       "$M, 0, workspace, 10"
+        # Window
+        "$mod,h, movefocus, r" # Move focus Right
+        "$mod,j, movefocus, u" # Move focus Up
+        "$mod,k, movefocus, d" # Move focus Down
+        "$mod,l, movefocus, l" # Move focus left
 
-  #       # MOVE ACTIVE WINDOW TO A WORKSPACE with M + SHIFT + [0-9]
-  #       "$M SHIFT, 1, movetoworkspace, 1"
-  #       "$M SHIFT, 2, movetoworkspace, 2"
-  #       "$M SHIFT, 3, movetoworkspace, 3"
-  #       "$M SHIFT, 4, movetoworkspace, 4"
-  #       "$M SHIFT, 5, movetoworkspace, 5"
-  #       "$M SHIFT, 6, movetoworkspace, 6"
-  #       "$M SHIFT, 7, movetoworkspace, 7"
-  #       "$M SHIFT, 8, movetoworkspace, 8"
-  #       "$M SHIFT, 9, movetoworkspace, 9"
-  #       "$M SHIFT, 0, movetoworkspace, 10"
+        # Util
+        "$mod SHIFT, Q, killactive,"
+        "$mod, F, fullscreen,"
+        "$mod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
-  #     ];
+        # Workspaces
+        "$mod, 0, workspace, 10"
+        "$mod SHIFT, 0, movetoworkspace, 10"
+      ]
+      ++ (
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        builtins.concatLists (builtins.genList (i:
+            let ws = i + 1;
+            in [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          )
+          9)
+      );
 
-  #     binds = {
-  #       allow_workspace_cycles = true;
-  #     };
+    bindm = [
+      "$mod,mouse:272, movewindow" # Move Window (mouse)
+      "$mod,R, resizewindow" # Resize Window (mouse)
+    ];
 
-  #     decoration = {
-  #       # See https://wiki.hyprland.org/Configuring/Variables/ for more
-  #       rounding = 5;
-  #       blur = {
-  #         enabled = true;
-  #         size = 3;
-  #         passes = 1;
-  #         new_optimizations = true;
-  #       };
+    bindl = [
+      ",XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer -t" # Toggle Mute
+      ",XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --allow-boost -i 5"
+      ",XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --allow-boost -d 5"
 
-  #       drop_shadow = true;
-  #       shadow_range = 4;
-  #       shadow_render_power = 3;
-  #       "col.shadow" = "rgba(1a1a1aee)";
-  #     };
+      ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause" # Play/Pause Song
+      ",XF86AudioPause, exec, ${pkgs.playerctl}/bin/playerctl play-pause" # Play/Pause Song
+      ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next" # Next Song
+      ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous" # Previous Song
+    ];
+  
+    animations = {
+        enabled = true;
+        # bezier = "ease, 0.05, 0.9, 0.1, 1.05";
 
-  #     animations = {
-  #       enabled = true;
-  #       # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-  #       bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-  #       animation = [
-  #         "windows, 1, 2, myBezier"
-  #           "windowsOut, 1, 2, default, popin 80%"
-  #           "border, 1, 3, default"
-  #           "borderangle, 1, 4, default"
-  #           "fade, 1, 2, default"
-  #           "workspaces, 1, 2, default"
-  #       ];
-  #     };
+        animation = [
+          "windows, 1, 4, default"
+          "windowsOut, 1, 4, default"
+          "border, 1, 5, default"
+          "fade, 1, 2.5, default"
+          "workspaces, 1, 6, default"
+        ];
+      };
 
-  #     gestures = {
-  #       # See https://wiki.hyprland.org/Configuring/Variables/ for more
-  #       workspace_swipe = false;
-  #     };    
-  #     
-  #     # GENERAL SETTINGS
-  #     general = {
-  #       border_size = 1;
-  #       no_border_on_floating = false;
-  #       gaps_in = 3;
-  #       gaps_out = 3;
-  #       "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-  #       "col.inactive_border" = "rgba(595959aa)";
-  #       layout = "master";
-  #       extend_border_grab_area = true;
-  #       hover_icon_on_border = true;
-  #     };
+    bindle = [
+      ",XF86AudioRaiseVolume, exec, sound-up" # Sound Up
+      ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
+      ",XF86MonBrightnessUp, exec, brightness-up" # Brightness Up
+      ",XF86MonBrightnessDown, exec, brightness-down" # Brightness Down
+    ];
+    
+    general = {
+      gaps_out = 5;
+    };
 
-  #     # MASTER LAYOUT 
-  #     master = {
-  #       allow_small_split = false;
-  #       special_scale_factor = 0.8;
-  #       mfact = 0.55;
-  #       new_is_master = true;
-  #       new_on_top = false;
-  #       no_gaps_when_only = false;
-  #       orientation = "left";
-  #       inherit_fullscreen = true;
-  #       always_center_master = false;
-  #     };
-  #   };
-  # };
+    decoration = {
+      rounding = 10;
+      rounding_power = 3;
+    };
+
+    misc = {
+      # disable auto polling for config file changes
+      disable_autoreload = true;
+      # disable_hyprland_logo = true;
+
+      vrr = 1;
+      vfr = true;
+    };
+
+    input = {
+      touchpad = {
+        natural_scroll = true;
+        disable_while_typing = true;
+        clickfinger_behavior = true;
+        tap-to-click = true;
+        scroll_factor = 0.5;
+      };
+    };
+
+    monitor = [
+      "eDP-1, preferred, auto, 1.000000"
+    ];
+
+    windowrulev2 = [
+      "float, title:^(Picture-in-Picture)$"
+      "pin, title:^(Picture-in-Picture)$"
+
+      "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
+      "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
+      "idleinhibit fullscreen, class:^(zen)$"
+    ];
+  };
 }

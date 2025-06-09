@@ -27,6 +27,7 @@ in
 
       # DE
       (base + /desktop/sway.nix)
+      (base + /desktop/hyprland.nix)
     ];
 
   # Nvidia
