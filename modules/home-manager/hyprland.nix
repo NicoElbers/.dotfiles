@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{lib, pkgs, ...}:
 {
   programs.kitty.enable = true; # required for the default Hyprland config
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
@@ -12,10 +12,115 @@
     hyprshot
     swappy
     hyprpaper
+    waybar
     hyprpolkitagent
   ];
 
+  programs.waybar = {
+    enable = true;
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        modules-left = [ "hyprland/workspaces" ];
+        modules-center = [ "clock" ];
+        modules-right = [ "battery" "pulseaudio" "tray" ];
+
+        "hyprland/workspaces" = {
+          disable-scroll = true;
+        };
+
+        "pulseaudio" = {
+          format = "{icon} {volume}%";
+          format-bluetooth = "{icon} {volume}% ";
+          format-muted = "";
+          format-icons = {
+            "headphones" = "";
+            "handsfree" = "";
+            "headset" = "";
+            "phone" = "";
+            "portable" = "";
+            "car" = "";
+            "default" = ["" ""];
+          };
+          on-click = "pavucontrol";
+        };
+
+        "battery" = {
+          states = {
+            warning = 15;
+            critical = 5;
+          };
+          format = "{icon} {capacity}%";
+          format-charging = " {capacity}%";
+          format-alt = "{time} {icon}";
+          format-icons = ["" "" "" "" ""];
+        };
+
+        "tray" = {
+          icon-size = 14;
+          spacing = 1;
+        };
+      };
+    };
+    style = ''
+      * {
+        border: none;
+        border-radius: 0px;
+        font-family: "JetBrainsMono Nerd Font";
+        font-weight: bold;
+        font-size: 14px;
+        min-height: 0;
+      }
+
+
+      /* Workspace Buttons */
+      #workspaces button label{
+        padding: 0 10px;
+      }
+
+      #clock, #battery, #pulseaudio, #tray {
+        padding: 0 10px;
+        margin: 0 10px;
+      }
+
+      #pulseaudio {
+        margin: 0;
+        color: #689d6a;
+        border-bottom: 5px solid #689d6a;
+      }
+
+      #pulseaudio.muted {
+        padding: 0 20px;
+        color: #cc241d;
+        border-bottom: 5px solid #cc241d;
+      }
+
+      #battery {
+        margin: 0;
+        color: #458588;
+        border-bottom: 5px solid #458588;
+      }
+
+      #clock {
+        margin: 0;
+        color: #b16286;
+        border-bottom: 5px solid #b16286;
+      }
+
+      #tray {
+        margin: 0 10px;
+        color: #d65d0e;
+        border-bottom: 5px solid #d65d0e;
+      }
+    '';
+  };
+
   services.hyprpaper = {
+    enable = true;
+  };
+
+  programs.hyprlock = {
     enable = true;
   };
 
@@ -27,6 +132,7 @@
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       "systemctl --user start hyprpolkitagent"
+      "waybar"
     ];
 
     "$mod" = "SUPER";
@@ -38,19 +144,26 @@
         "$mod, R, exec, rofi -show drun"
 
         # Window
-        "$mod,h, movefocus, r" # Move focus Right
-        "$mod,j, movefocus, u" # Move focus Up
-        "$mod,k, movefocus, d" # Move focus Down
-        "$mod,l, movefocus, l" # Move focus left
+        "$mod,SPACE,togglefloating" # Float toggle
+
+        "$mod,h, movefocus, l" # Move focus Right
+        "$mod,j, movefocus, d" # Move focus Down
+        "$mod,k, movefocus, u" # Move focus Up
+        "$mod,l, movefocus, r" # Move focus Left
+
+        "$mod SHIFT,h, swapwindow, l" # Move window Right
+        "$mod SHIFT,j, swapwindow, d" # Move window Down
+        "$mod SHIFT,k, swapwindow, u" # Move window Up
+        "$mod SHIFT,l, swapwindow, r" # Move window Left
 
         # Util
         "$mod SHIFT, Q, killactive,"
         "$mod, F, fullscreen,"
-        "$mod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
+        "$mod, P, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
         # Workspaces
         "$mod, 0, workspace, 10"
-        "$mod SHIFT, 0, movetoworkspace, 10"
+        "$mod SHIFT, 0, movetoworkspacesilent, 10"
       ]
       ++ (
         # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
@@ -58,7 +171,7 @@
             let ws = i + 1;
             in [
               "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspacesilent, ${toString ws}"
             ]
           )
           9)
@@ -66,14 +179,10 @@
 
     bindm = [
       "$mod,mouse:272, movewindow" # Move Window (mouse)
-      "$mod,R, resizewindow" # Resize Window (mouse)
+      "$mod,g, resizewindow" # Resize Window (mouse)
     ];
 
     bindl = [
-      ",XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer -t" # Toggle Mute
-      ",XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --allow-boost -i 5"
-      ",XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --allow-boost -d 5"
-
       ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause" # Play/Pause Song
       ",XF86AudioPause, exec, ${pkgs.playerctl}/bin/playerctl play-pause" # Play/Pause Song
       ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next" # Next Song
@@ -94,10 +203,11 @@
       };
 
     bindle = [
-      ",XF86AudioRaiseVolume, exec, sound-up" # Sound Up
-      ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
-      ",XF86MonBrightnessUp, exec, brightness-up" # Brightness Up
-      ",XF86MonBrightnessDown, exec, brightness-down" # Brightness Down
+      ",XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer -t" # Toggle Mute
+      ",XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --allow-boost -i 5"
+      ",XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --allow-boost -d 5"
+      ",XF86MonBrightnessDown, exec, ${lib.getExe pkgs.light} -U 10" # Brightness Up
+      ",XF86MonBrightnessUp, exec, ${lib.getExe pkgs.light} -A 10" # Brightness Down
     ];
     
     general = {
