@@ -41,6 +41,9 @@
         spotify
         bitwarden-desktop
 
+        # Games
+        prismlauncher
+
         # Communication
         discord
         signal-desktop
