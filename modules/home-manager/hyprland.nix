@@ -68,7 +68,6 @@
         border: none;
         border-radius: 0px;
         font-family: "JetBrainsMono Nerd Font";
-        font-weight: bold;
         font-size: 14px;
         min-height: 0;
       }
