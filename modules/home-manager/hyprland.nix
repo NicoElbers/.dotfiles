@@ -22,12 +22,66 @@
       mainBar = {
         layer = "top";
         position = "top";
+
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "battery" "pulseaudio" "tray" ];
+        modules-right = [
+          "cpu"
+          "memory"
+          "disk"
+          "network"
+          "custom/media"
+          "battery"
+          "pulseaudio"
+          "tray"
+        ];
 
         "hyprland/workspaces" = {
           disable-scroll = true;
+        };
+
+        "clock" = {
+          format = "{:%d/%m %a %H:%M:%S}";
+          interval = 1;
+          max-length = 18;
+        };
+
+        "cpu" = {
+          format = " {usage}%";
+          max-length = 4;
+        };
+
+        "memory" = {
+          format = " {used:0.1f}G/{total:0.1f}G";
+          max-length = 10;
+        };
+
+        "disk" = {
+          format = " {free}";
+          path = "/";
+          max-length = 10;
+        };
+
+        "network" = {
+          format-wifi = " {essid}";
+          format-ethernet = " Wired";
+          format-disconnected = "⚠ Disconnected";
+
+          tooltip-format = "{ifname} {ipaddr}\n⬆ {bandwidthUpBits}\n⬇ {bandwidthDownBits}\nSignal: {signalStrength}%";
+          tooltip-format-wifi = "{essid} ({signalStrength}%)\n⬆ {bandwidthUpBits}\n⬇ {bandwidthDownBits}";
+          tooltip-format-ethernet = "{ifname} (Wired)\n⬆ {bandwidthUpBits}\n⬇ {bandwidthDownBits}";
+          tooltip-format-disconnected = "⚠ Disconnected";
+
+          max-length = 15;
+        };
+
+        "custom/media" = {
+          format = "🎵 {}";
+          return-type = "text";
+          exec = "${pkgs.playerctl}/bin/playerctl metadata --format '{{artist}} - {{title}}'";
+          interval = 2;
+          on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
+          max-length = 25;
         };
 
         "pulseaudio" = {
@@ -36,14 +90,15 @@
           format-muted = "";
           format-icons = {
             "headphones" = "";
-            "handsfree" = "";
-            "headset" = "";
+            "handsfree" = "";
+            "headset" = "";
             "phone" = "";
             "portable" = "";
             "car" = "";
-            "default" = ["" ""];
+            "default" = [ "" "" ];
           };
-          on-click = "pavucontrol";
+          on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+          max-length = 4;
         };
 
         "battery" = {
@@ -54,7 +109,8 @@
           format = "{icon} {capacity}%";
           format-charging = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [ "" "" "" "" "" ];
+          max-length = 7;
         };
 
         "tray" = {
@@ -63,6 +119,7 @@
         };
       };
     };
+
     style = ''
       * {
         border: none;
@@ -72,45 +129,74 @@
         min-height: 0;
       }
 
-
-      /* Workspace Buttons */
-      #workspaces button label{
+      #workspaces button label {
         padding: 0 10px;
       }
 
-      #clock, #battery, #pulseaudio, #tray {
-        padding: 0 10px;
-        margin: 0 10px;
+      #clock, #battery, #pulseaudio, #tray, #cpu, #memory,
+      #disk, #network, #custom-media {
+        padding: 0 8px;
+        margin: 0 4px;
+        min-height: 20px;
       }
 
       #pulseaudio {
-        margin: 0;
-        color: #689d6a;
-        border-bottom: 5px solid #689d6a;
+        color: #A3BE8C;      /* Soft green */
+        border-bottom: 3px solid #A3BE8C;
+        min-width: 70px;     /* Fixed width */
       }
 
       #pulseaudio.muted {
-        padding: 0 20px;
-        color: #cc241d;
-        border-bottom: 5px solid #cc241d;
+        color: #BF616A;      /* Muted red */
+        border-bottom: 3px solid #BF616A;
       }
 
       #battery {
-        margin: 0;
-        color: #458588;
-        border-bottom: 5px solid #458588;
+        color: #88C0D0;      /* Arctic blue */
+        border-bottom: 3px solid #88C0D0;
+        min-width: 50px;     /* Fixed width */
       }
 
       #clock {
-        margin: 0;
-        color: #b16286;
-        border-bottom: 5px solid #b16286;
+        color: #B48EAD;      /* Lavender */
+        border-bottom: 3px solid #B48EAD;
+        min-width: 170px;    /* Fixed width */
       }
 
       #tray {
-        margin: 0 10px;
-        color: #d65d0e;
-        border-bottom: 5px solid #d65d0e;
+        color: #D08770;      /* Peach */
+        border-bottom: 3px solid #D08770;
+        min-width: 40px;     /* Fixed width */
+      }
+
+      #cpu {
+        color: #EBCB8B;      /* Butter yellow */
+        border-bottom: 3px solid #EBCB8B;
+        min-width: 60px;     /* Fixed width */
+      }
+
+      #memory {
+        color: #81A1C1;      /* Polar blue */
+        border-bottom: 3px solid #81A1C1;
+        min-width: 130px;    /* Fixed width */
+      }
+
+      #disk {
+        color: #8FBCBB;      /* Teal (replaced white) */
+        border-bottom: 3px solid #8FBCBB;
+        min-width: 100px;    /* Fixed width */
+      }
+
+      #network {
+        color: #D3869B;      /* Blush pink */
+        border-bottom: 3px solid #D3869B;
+        min-width: 120px;    /* Fixed width */
+      }
+
+      #custom-media {
+        color: #C678DD;      /* Soft purple */
+        border-bottom: 3px solid #C678DD;
+        min-width: 180px;    /* Fixed width */
       }
     '';
   };
@@ -134,7 +220,7 @@
       "waybar"
     ];
 
-    "$mod" = "SUPER";
+    "$mod" = "ALT";
     bind =
       [
         # Common
