@@ -27,8 +27,20 @@ in
         key = null;
       };
 
+      lfs = {
+        enable = true;
+      };
+
       extraConfig = {
         init.defaultBranch = "main";
+
+        pull = {
+          rebase = true;
+        };
+
+        push = {
+          autoSetupRemote = true;
+        };
       };
     };
   };
