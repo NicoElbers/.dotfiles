@@ -14,4 +14,6 @@
     ./firefox.nix
     ./ghostty.nix
   ];
+
+  services.network-manager-applet.enable = true;
 }
