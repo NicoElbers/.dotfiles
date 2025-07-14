@@ -40,16 +40,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1752170562,
-        "narHash": "sha256-m0Wib4dyDfsnf8KosvOiXFkU0BxI6tbI1VKm0aLd2MQ=",
+        "lastModified": 1749521619,
+        "narHash": "sha256-wVeoZXTSgUuyqKU13MaPga2Eeqf2dqCUQ4PjIE7ZcOQ=",
         "owner": "Saghen",
         "repo": "blink.cmp",
-        "rev": "a68d3335277c56f0b5977a5f8e00996e84b0ce7c",
+        "rev": "d23604026237e4d6bc33bb13eaf19ced0448c714",
         "type": "github"
       },
       "original": {
         "owner": "Saghen",
         "repo": "blink.cmp",
+        "rev": "d23604026237e4d6bc33bb13eaf19ced0448c714",
         "type": "github"
       }
     },
@@ -806,11 +807,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1752188080,
-        "narHash": "sha256-/0P/TCKu5XnCzNK6T+I7crMpXIXZ5zf7+FAPWKFWhzo=",
+        "lastModified": 1752451413,
+        "narHash": "sha256-poj5LUKh4IUxSsQ5yTnTk12nzXEJTR53h9SagoHfiy4=",
         "owner": "NicoElbers",
         "repo": "nvim-config",
-        "rev": "ffc6faf4742bed6c2855886d056b59280287e27e",
+        "rev": "5525dc6c5c3f68bc3b7f5c5a8cdb8c308580fce0",
         "type": "github"
       },
       "original": {
