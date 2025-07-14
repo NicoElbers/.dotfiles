@@ -27,19 +27,21 @@ in
         key = null;
       };
 
-      lfs = {
-        enable = true;
-      };
+      lfs.enable = true;
 
       extraConfig = {
         init.defaultBranch = "main";
 
-        pull = {
-          rebase = true;
-        };
+        pull.rebase = true;
+        push.autoSetupRemote = true;
 
-        push = {
-          autoSetupRemote = true;
+        rerere.enabled = true;
+
+        core.fsmonitor = true;
+
+        alias = {
+          wd = "diff --word-diff=color --color";
+          bc = "blame -C -C -C";
         };
       };
     };
