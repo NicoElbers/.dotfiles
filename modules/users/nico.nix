@@ -40,6 +40,7 @@
         gimp3
         spotify
         bitwarden-desktop
+        krita
 
         # Games
         prismlauncher
