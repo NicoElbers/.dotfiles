@@ -41,6 +41,7 @@
         spotify
         bitwarden-desktop
         krita
+        blender
 
         # Games
         prismlauncher
