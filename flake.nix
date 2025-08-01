@@ -41,6 +41,9 @@
         };
         system = systemSettings.system;
         modules = [
+          ({...}: {
+            nixpkgs.overlays = import ./overlays.nix {inherit inputs;};
+          })
           ./hosts/omen-laptop/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
