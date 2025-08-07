@@ -17,6 +17,7 @@
 
     ghostty = {
       url = "git+ssh://git@github.com/ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
