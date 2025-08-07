@@ -75,6 +75,7 @@ in
     # (base + /direnv.nix)
     # (base + /kitty.nix)
     # (base + /zathura.nix)
+    inputs.wayland-pipewire-idle-inhibit.homeModules.default
     (base + /base.nix)
   ];
 

@@ -7,6 +7,20 @@
   home.sessionVariables.NIXOS_OZONE_WL = "1";
   home.sessionVariables.OZONE_PLATFORM = "wayland ";
 
+  # Ensure that audio doesn't die
+  services.wayland-pipewire-idle-inhibit = {
+    enable = true;
+    systemdTarget = "hyprland-session.target";
+    settings = {
+      verbosity = "INFO";
+      media_minimum_duration = 10;
+      idle_inhibitor = "wayland";
+      node_blacklist = [
+        { app_name = "Spotify"; }
+      ];
+    };
+  };
+
   home.packages = with pkgs; [
     hyprpicker
     hyprshot

@@ -20,6 +20,8 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
 
   outputs = { nixpkgs, ... }@inputs:
