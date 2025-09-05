@@ -17,7 +17,7 @@
   };
 
   dev = {
-    path= ./dev;
+    path = ./dev;
     description = "An empty dev shell for customization";
   };
 }

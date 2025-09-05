@@ -1,33 +1,46 @@
 {
-  description = "Zig dev environment";
+  description = "Rust dev flake";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  inputs.zls = {
-    url = "github:zigtools/zls";
-    inputs.nixpkgs.follows = "nixpkgs";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  inputs.rust-overlay = {
-    url = "github:oxalica/rust-overlay";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+  outputs =
+    {
+      nixpkgs,
+      fenix,
+      ...
+    }:
+    let
+      forAllSystems =
+        f:
+        builtins.mapAttrs (
+          system: pkgsForSystem:
+          let
+            # Overlay the Fenix packages onto the nixpkgs set
+            pkgs = pkgsForSystem // {
+              inherit (fenix.packages.${system}.latest) cargo rustc rust-src;
+            };
+          in
+          f system pkgs
+        ) nixpkgs.legacyPackages;
+    in
+    {
+      devShells = forAllSystems (
+        system: pkgs: {
 
-  outputs = { nixpkgs, rust-overlay, flake-utils, ... }:
-      flake-utils.lib.eachDefaultSystem (system:
-        let
-          overlays = [ (import rust-overlay) ];
-          pkgs = import nixpkgs {
-            inherit system overlays;
-          };
-        in
-        {
-          devShells.default = with pkgs; mkShell {
-            buildInputs = [
-              rust-bin.beta.latest.default
+          default = pkgs.mkShellNoCC {
+            packages = with pkgs; [
+              rustc
+              cargo
             ];
           };
         }
       );
+    };
 }

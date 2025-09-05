@@ -1,28 +1,31 @@
-# Copied from https://github.com/the-nix-way/dev-templates/blob/main/c-cpp/flake.nix
 {
-  description = "A Nix-flake-based C/C++ development environment";
+  description = "C/C++ flake";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    {
+      nixpkgs,
+      ...
+    }:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      forAllSystems = f: builtins.mapAttrs f nixpkgs.legacyPackages;
     in
     {
-      devShells = forEachSupportedSystem ({ pkgs }: {
-        default = pkgs.mkShell.override
-          {
-            # Override stdenv in order to change compiler:
-            stdenv = pkgs.clangStdenv;
-          }
-          {
+      devShells = forAllSystems (
+        system: pkgs: {
+
+          default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
             packages = with pkgs; [
               lldb
+              cmake
+              python3
+              clang-tools
             ];
           };
-      });
+        }
+      );
     };
 }

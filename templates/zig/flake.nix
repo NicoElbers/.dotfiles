@@ -1,33 +1,42 @@
 {
   description = "Zig dev environment";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  inputs.zig = {
-    url = "github:mitchellh/zig-overlay";
-    inputs.nixpkgs.follows = "nixpkgs";
+    zig = {
+      url = "github:silversquirl/zig-flake/compat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zls = {
+      url = "github:zigtools/zls";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.zig-overlay.follows = "zig";
+    };
   };
 
-  inputs.zls = {
-    url = "github:zigtools/zls";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+  outputs =
+    {
+      nixpkgs,
+      zig,
+      zls,
+      ...
+    }:
+    let
+      forAllSystems = f: builtins.mapAttrs f nixpkgs.legacyPackages;
+    in
+    {
+      devShells = forAllSystems (
+        system: pkgs: {
 
-  outputs = { nixpkgs, flake-utils, zls, zig, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        zls_bound = zls.packages.${system}.zls;
-        zig_bound = zig.packages.${system}.master;
-      in
-      {
-        devShells.default = with pkgs; mkShell {
-          packages = [
-            bashInteractive
-            zig_bound
-            zls_bound
-          ];
-        };
-      });
+          default = pkgs.mkShellNoCC {
+            packages = [
+              zig.packages.${system}.nightly
+              zls.packages.${system}.zls
+            ];
+          };
+        }
+      );
+    };
 }

@@ -1,41 +1,43 @@
-# Copied from https://github.com/the-nix-way/dev-templates/blob/main/c-cpp/flake.nix
 {
-  description = "A Nix-flake-based C/C++ development environment with zig as build system";
+  description = "C/C++ flake with zig";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  inputs.zig = {
-    url = "github:mitchellh/zig-overlay";
-    inputs.nixpkgs.follows = "nixpkgs";
+    zig = {
+      url = "github:silversquirl/zig-flake/compat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zls = {
+      url = "github:zigtools/zls";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.zig-overlay.follows = "zig";
+    };
   };
 
-  inputs.zls = {
-    url = "github:zigtools/zls";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
-  outputs = { self, nixpkgs, zig, zls }:
+  outputs =
+    {
+      nixpkgs,
+      zig,
+      zls,
+      ...
+    }:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      forAllSystems = f: builtins.mapAttrs f nixpkgs.legacyPackages;
     in
     {
-      devShells = forEachSupportedSystem ({ pkgs }: {
-        default = pkgs.mkShell.override
-          {
-            # Override stdenv in order to change compiler:
-            stdenv = pkgs.clangStdenv;
-          }
-          {
+      devShells = forAllSystems (
+        system: pkgs: {
+
+          default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
             packages = with pkgs; [
               lldb
-
-              zig.packages.${pkgs.system}.master
-              zls.packages.${pkgs.system}.zls
+              zig.packages.${system}.nightly
+              zls.packages.${system}.zls
             ];
           };
-      });
+        }
+      );
     };
 }
