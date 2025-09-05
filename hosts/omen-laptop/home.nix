@@ -1,5 +1,10 @@
 # TODO: Try to remove this file as much as possible
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   base = ../../modules/home-manager;
@@ -94,7 +99,7 @@ in
     ohMyPosh = {
       enable = false;
     };
-    
+
     starship.enable = true;
   };
   direnv-cfg.enable = true;

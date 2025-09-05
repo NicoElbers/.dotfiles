@@ -1,4 +1,4 @@
-{ inputs, ... }: 
+{ inputs, ... }:
 [
   # https://github.com/NixOS/nixpkgs/issues/429888
   # (final: prev: {

@@ -1,5 +1,10 @@
 # TODO: Decide if this is better moved to ./users
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
     ./bluetooth.nix
@@ -9,7 +14,10 @@
 
   config = {
     nix.settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
 
     nix.gc = {
@@ -32,48 +40,50 @@
       nixos.enable = true;
     };
 
-    environment.systemPackages = with pkgs; 
-    let
-      my-nvim = inputs.nvim.packages.${system}.default;
-      ghostty = inputs.ghostty.packages.${system}.default;
-    in [
-      # Essentials
-      vim # Edit files
-      git # Pull down config
-      wget # Download stuff if required
-      # inputs.nvim.packages.${system}.default # My neovim config
-      my-nvim # neovim <3
+    environment.systemPackages =
+      with pkgs;
+      let
+        my-nvim = inputs.nvim.packages.${system}.default;
+        ghostty = inputs.ghostty.packages.${system}.default;
+      in
+      [
+        # Essentials
+        vim # Edit files
+        git # Pull down config
+        wget # Download stuff if required
+        # inputs.nvim.packages.${system}.default # My neovim config
+        my-nvim # neovim <3
 
-      # networking
-      networkmanagerapplet
+        # networking
+        networkmanagerapplet
 
-      # FIXME: Find an alternative to alacritty
-      # alacritty # Terminal
-      kitty # Terminal
-      ghostty # Better terminal
+        # FIXME: Find an alternative to alacritty
+        # alacritty # Terminal
+        kitty # Terminal
+        ghostty # Better terminal
 
-      # Great utilities
-      bat # cat but colors
-      fd # find but simply better
-      wl-clipboard # Cliboards are useful
-      htop # I like to see why my device is burning
-      tree # Easy FSH visualization 
+        # Great utilities
+        bat # cat but colors
+        fd # find but simply better
+        wl-clipboard # Cliboards are useful
+        htop # I like to see why my device is burning
+        tree # Easy FSH visualization
 
-      hyperfine # TODO: move to user
+        hyperfine # TODO: move to user
 
-      kalker # MATH
-      unzip # unzipping archives is useful
-      zip # zipping archives is useful
-      ripgrep # grep but better
+        kalker # MATH
+        unzip # unzipping archives is useful
+        zip # zipping archives is useful
+        ripgrep # grep but better
 
-      # man pages
-      linux-manual
-      man-pages
-      man-pages-posix
+        # man pages
+        linux-manual
+        man-pages
+        man-pages-posix
 
-      # Safe to have available
-      polkit
-    ];
+        # Safe to have available
+        polkit
+      ];
 
     # Safe to have available
     security.polkit.enable = true;

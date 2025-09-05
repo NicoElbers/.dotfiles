@@ -1,4 +1,11 @@
-{pkgs, lib, makeWrapper, buildGoModule, fetchFromGitHub, callPackage,}:
+{
+  pkgs,
+  lib,
+  makeWrapper,
+  buildGoModule,
+  fetchFromGitHub,
+  callPackage,
+}:
 
 buildGoModule {
   pname = "gorun";

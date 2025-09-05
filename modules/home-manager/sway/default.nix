@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   sway-cfg = config.sway-cfg;
@@ -34,7 +39,7 @@ in
     ./swaync.nix
   ];
 
-  options.sway-cfg = with lib;{
+  options.sway-cfg = with lib; {
     enable = mkEnableOption "enable sway config";
 
     terminal = mkOption {
@@ -53,7 +58,6 @@ in
 
     # Enable statusbar
     i3status-rust.enable = lib.mkDefault true;
-
 
     programs.swaylock.enable = lib.mkDefault true;
 
@@ -85,7 +89,7 @@ in
         };
 
         assigns = {
-          ${ws10} = [{ class = "^Spotify$"; }];
+          ${ws10} = [ { class = "^Spotify$"; } ];
         };
 
         floating = {
@@ -112,7 +116,7 @@ in
           # Quick and dirty fix to start at the right workspace
           { command = "swaymsg workspace ${ws1}"; }
 
-          # Auto start spotify 
+          # Auto start spotify
           # TODO: See if I can put this in xdgAutostart
           { command = "${pkgs.spotify}/bin/spotify"; }
 
@@ -123,7 +127,10 @@ in
           { command = "${lib.getExe pkgs.gammastep} -O 3500"; }
 
           # Setup background
-          { command = bg-command; always = true; }
+          {
+            command = bg-command;
+            always = true;
+          }
         ];
 
         keybindings =
@@ -166,7 +173,6 @@ in
             # Taken from https://www.reddit.com/r/swaywm/comments/9q5a5l/comment/e8ahpwl/
             "${mod}+Shift+s" = screenshot_cmd;
             "print" = screenshot_cmd;
-
 
             # Move focus
             "${mod}+${cfg.left}" = "focus left";

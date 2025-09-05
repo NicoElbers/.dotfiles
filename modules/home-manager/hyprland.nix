@@ -1,4 +1,4 @@
-{lib, pkgs, ...}:
+{ lib, pkgs, ... }:
 {
   programs.kitty.enable = true; # required for the default Hyprland config
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
@@ -109,7 +109,10 @@
             "phone" = "";
             "portable" = "";
             "car" = "";
-            "default" = [ "" "" ];
+            "default" = [
+              ""
+              ""
+            ];
           };
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
           max-length = 4;
@@ -123,7 +126,13 @@
           format = "{icon} {capacity}%";
           format-charging = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
           max-length = 7;
         };
 
@@ -235,46 +244,49 @@
     ];
 
     "$mod" = "ALT";
-    bind =
-      [
-        # Common
-        "$mod, B, exec, firefox"
-        "$mod, RETURN, exec, ghostty"
-        "$mod, R, exec, rofi -show drun"
+    bind = [
+      # Common
+      "$mod, B, exec, firefox"
+      "$mod, RETURN, exec, ghostty"
+      "$mod, R, exec, rofi -show drun"
 
-        # Window
-        "$mod,SPACE,togglefloating" # Float toggle
+      # Window
+      "$mod,SPACE,togglefloating" # Float toggle
 
-        "$mod,h, movefocus, l" # Move focus Right
-        "$mod,j, movefocus, d" # Move focus Down
-        "$mod,k, movefocus, u" # Move focus Up
-        "$mod,l, movefocus, r" # Move focus Left
+      "$mod,h, movefocus, l" # Move focus Right
+      "$mod,j, movefocus, d" # Move focus Down
+      "$mod,k, movefocus, u" # Move focus Up
+      "$mod,l, movefocus, r" # Move focus Left
 
-        "$mod SHIFT,h, swapwindow, l" # Move window Right
-        "$mod SHIFT,j, swapwindow, d" # Move window Down
-        "$mod SHIFT,k, swapwindow, u" # Move window Up
-        "$mod SHIFT,l, swapwindow, r" # Move window Left
+      "$mod SHIFT,h, swapwindow, l" # Move window Right
+      "$mod SHIFT,j, swapwindow, d" # Move window Down
+      "$mod SHIFT,k, swapwindow, u" # Move window Up
+      "$mod SHIFT,l, swapwindow, r" # Move window Left
 
-        # Util
-        "$mod SHIFT, Q, killactive,"
-        "$mod, F, fullscreen,"
-        "$mod, P, exec, ${pkgs.hyprlock}/bin/hyprlock"
+      # Util
+      "$mod SHIFT, Q, killactive,"
+      "$mod, F, fullscreen,"
+      "$mod, P, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
-        # Workspaces
-        "$mod, 0, workspace, 10"
-        "$mod SHIFT, 0, movetoworkspacesilent, 10"
-      ]
-      ++ (
-        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-        builtins.concatLists (builtins.genList (i:
-            let ws = i + 1;
-            in [
-              "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspacesilent, ${toString ws}"
-            ]
-          )
-          9)
-      );
+      # Workspaces
+      "$mod, 0, workspace, 10"
+      "$mod SHIFT, 0, movetoworkspacesilent, 10"
+    ]
+    ++ (
+      # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+      builtins.concatLists (
+        builtins.genList (
+          i:
+          let
+            ws = i + 1;
+          in
+          [
+            "$mod, code:1${toString i}, workspace, ${toString ws}"
+            "$mod SHIFT, code:1${toString i}, movetoworkspacesilent, ${toString ws}"
+          ]
+        ) 9
+      )
+    );
 
     bindm = [
       "$mod,mouse:272, movewindow" # Move Window (mouse)
@@ -287,19 +299,19 @@
       ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next" # Next Song
       ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous" # Previous Song
     ];
-  
-    animations = {
-        enabled = true;
-        # bezier = "ease, 0.05, 0.9, 0.1, 1.05";
 
-        animation = [
-          "windows, 1, 4, default"
-          "windowsOut, 1, 4, default"
-          "border, 1, 5, default"
-          "fade, 1, 2.5, default"
-          "workspaces, 1, 6, default"
-        ];
-      };
+    animations = {
+      enabled = true;
+      # bezier = "ease, 0.05, 0.9, 0.1, 1.05";
+
+      animation = [
+        "windows, 1, 4, default"
+        "windowsOut, 1, 4, default"
+        "border, 1, 5, default"
+        "fade, 1, 2.5, default"
+        "workspaces, 1, 6, default"
+      ];
+    };
 
     bindle = [
       ",XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer -t" # Toggle Mute
@@ -308,7 +320,7 @@
       ",XF86MonBrightnessDown, exec, ${lib.getExe pkgs.light} -U 10" # Brightness Up
       ",XF86MonBrightnessUp, exec, ${lib.getExe pkgs.light} -A 10" # Brightness Down
     ];
-    
+
     general = {
       gaps_out = 5;
     };

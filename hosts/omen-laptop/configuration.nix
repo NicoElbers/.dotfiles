@@ -2,33 +2,39 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, system, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  system,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   base = ../../modules;
   hardware = inputs.nixos-hardware;
 in
 {
-  imports =
-    [
-      # Hardware specific conifig
-      ./hardware-configuration.nix
-      hardware.nixosModules.omen-16-n0280nd
-      ./bootloader.nix
+  imports = [
+    # Hardware specific conifig
+    ./hardware-configuration.nix
+    hardware.nixosModules.omen-16-n0280nd
+    ./bootloader.nix
 
-      # Home manager
-      inputs.home-manager.nixosModules.default
+    # Home manager
+    inputs.home-manager.nixosModules.default
 
-      # Base config
-      (base + /base.nix)
+    # Base config
+    (base + /base.nix)
 
-      # Users
-      (base + /users/nico.nix)
+    # Users
+    (base + /users/nico.nix)
 
-      # DE
-      (base + /desktop/sway.nix)
-      (base + /desktop/hyprland.nix)
-    ];
+    # DE
+    (base + /desktop/sway.nix)
+    (base + /desktop/hyprland.nix)
+  ];
 
   # Nvidia
   # FIXME: Move into module
@@ -82,7 +88,6 @@ in
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
 
-
   # Configure keymap in X11
   # TODO: See if this needs to be removed
   services.xserver.xkb = {
@@ -120,7 +125,11 @@ in
 
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "nico" = { ... }: { imports = [ ./home.nix ]; };
+      "nico" =
+        { ... }:
+        {
+          imports = [ ./home.nix ];
+        };
     };
   };
 

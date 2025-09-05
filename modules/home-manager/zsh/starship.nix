@@ -50,9 +50,15 @@ in
         c = {
           format = "[$symbol($version)]($style) ";
           version_format = "v($mayor.)$minor.$patch";
-          detect_extensions = [ "c" "h" "cpp" "cxx" "cc" "hpp"];
+          detect_extensions = [
+            "c"
+            "h"
+            "cpp"
+            "cxx"
+            "cc"
+            "hpp"
+          ];
         };
-
 
         rust = {
           format = "[$symbol($version)]($style) ";

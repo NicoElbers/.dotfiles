@@ -12,7 +12,9 @@ let
       Type=Application
     '';
     checkPhase = ''${pkgs.buildPackages.desktop-file-utils}/bin/desktop-file-validate "$target"'';
-    derivationArgs = { passthru.providedSessions = [ "sway-nvidia" ]; };
+    derivationArgs = {
+      passthru.providedSessions = [ "sway-nvidia" ];
+    };
   };
 
   sway = pkgs.writeTextFile {
@@ -26,7 +28,9 @@ let
       Type=Application
     '';
     checkPhase = ''${pkgs.buildPackages.desktop-file-utils}/bin/desktop-file-validate "$target"'';
-    derivationArgs = { passthru.providedSessions = [ "sway" ]; };
+    derivationArgs = {
+      passthru.providedSessions = [ "sway" ];
+    };
   };
 in
 {
@@ -43,9 +47,17 @@ in
     extraOptions = [
       "--unsupported-gpu"
     ];
-    extraPackages = with pkgs; [ swaylock swayidle kitty dmenu ];
+    extraPackages = with pkgs; [
+      swaylock
+      swayidle
+      kitty
+      dmenu
+    ];
   };
 
   # Setup session for swayfx
-  services.displayManager.sessionPackages = [ sway-nvidia sway ];
+  services.displayManager.sessionPackages = [
+    sway-nvidia
+    sway
+  ];
 }

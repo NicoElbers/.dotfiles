@@ -1,5 +1,10 @@
 # TODO: Make this module configurable
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.zsh-cfg;
   shell-scipts = import ../../shell-scripts.nix { inherit lib pkgs; };
@@ -19,7 +24,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;[
+    home.packages = with pkgs; [
       zsh
     ];
 
@@ -32,53 +37,54 @@ in
       syntaxHighlighting.enable = true;
       autocd = true;
 
-      initExtraFirst = /*bash*/ ''
-      '';
+      initExtraFirst = # bash
+        '''';
 
-      initContent = /*bash*/ ''
-        # Allow for case insensitive matching
-        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} m:{a-z}={A-Z} r:|[._-]=* r:|=*'
+      initContent = # bash
+        ''
+          # Allow for case insensitive matching
+          zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} m:{a-z}={A-Z} r:|[._-]=* r:|=*'
 
-        # Select from menu
-        zstyle ':completion:*' menu select
+          # Select from menu
+          zstyle ':completion:*' menu select
 
-        setopt auto_menu
-        setopt complete_in_word
+          setopt auto_menu
+          setopt complete_in_word
 
-        # Bind Shift-Tab to go backward in completion menu
-        bindkey "^[[Z" reverse-menu-complete
+          # Bind Shift-Tab to go backward in completion menu
+          bindkey "^[[Z" reverse-menu-complete
 
-        bindkey "^H" backward-word
-        bindkey "^L" forward-word
+          bindkey "^H" backward-word
+          bindkey "^L" forward-word
 
-        autoload -z edit-command-line
-        zle -N edit-command-line
-        bindkey "^X" edit-command-line
+          autoload -z edit-command-line
+          zle -N edit-command-line
+          bindkey "^X" edit-command-line
 
-        # Properly expand "..." and the likes
-        function expand-dots() {
-          local MATCH
-          if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
-            LBUFFER=$LBUFFER:fs%\.\.\.%../..%
-          fi
-        }
+          # Properly expand "..." and the likes
+          function expand-dots() {
+            local MATCH
+            if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
+              LBUFFER=$LBUFFER:fs%\.\.\.%../..%
+            fi
+          }
 
-        function expand-dots-then-expand-or-complete() {
-          zle expand-dots
-          zle expand-or-complete
-        }
+          function expand-dots-then-expand-or-complete() {
+            zle expand-dots
+            zle expand-or-complete
+          }
 
-        function expand-dots-then-accept-line() {
-          zle expand-dots
-          zle accept-line
-        }
+          function expand-dots-then-accept-line() {
+            zle expand-dots
+            zle accept-line
+          }
 
-        zle -N expand-dots
-        zle -N expand-dots-then-expand-or-complete
-        zle -N expand-dots-then-accept-line
-        bindkey '^I' expand-dots-then-expand-or-complete
-        bindkey '^M' expand-dots-then-accept-line
-      '';
+          zle -N expand-dots
+          zle -N expand-dots-then-expand-or-complete
+          zle -N expand-dots-then-accept-line
+          bindkey '^I' expand-dots-then-expand-or-complete
+          bindkey '^M' expand-dots-then-accept-line
+        '';
 
       shellAliases = {
         rebuild = "nixos-rebuild switch --sudo --flake ~/.dotfiles#omen -L --show-trace";
@@ -92,7 +98,7 @@ in
 
         # Cat images using the kitty image protocol
         icat = "${lib.getBin pkgs.kitty} +kitten icat";
-        };
+      };
 
       plugins = [
         {

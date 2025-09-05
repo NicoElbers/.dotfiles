@@ -56,11 +56,13 @@ in
     echo "Successfully initialized flake"
   '';
 
-  zello = writers.writeZigBin "zello" { } /*zig*/ ''
-    const std = @import("std");
+  zello =
+    writers.writeZigBin "zello" { } # zig
+      ''
+        const std = @import("std");
 
-    pub fn main() void {
-      std.debug.print("Hello world from zig!\n", .{});
-    }
-  '';
+        pub fn main() void {
+          std.debug.print("Hello world from zig!\n", .{});
+        }
+      '';
 }

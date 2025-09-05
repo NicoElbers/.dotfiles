@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.i3status-rust;
 in
@@ -38,7 +43,6 @@ in
       type = lib.types.str;
       default = "#f3f4f5";
     };
-
 
   };
 
@@ -114,21 +118,34 @@ in
       };
     };
 
+    wayland.windowManager.sway.config.bars = [
+      {
+        statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs config-${cfg.config-name}.toml";
+        position = "top";
+        extraConfig = ''
+          height 25 
+        '';
+        colors = {
+          background = cfg.normal.bg;
+          separator = cfg.urgent.bg;
 
-    wayland.windowManager.sway.config.bars = [{
-      statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs config-${cfg.config-name}.toml";
-      position = "top";
-      extraConfig = ''
-        height 25 
-      '';
-      colors = {
-        background = cfg.normal.bg;
-        separator = cfg.urgent.bg;
-
-        focusedWorkspace = with cfg.normal;    { background = bg; border = bg; text = text; };
-        inactiveWorkspace = with cfg.inactive;  { background = bg; border = bg; text = text; };
-        urgentWorkspace = with cfg.urgent;    { background = bg; border = bg; text = text; };
-      };
-    }];
+          focusedWorkspace = with cfg.normal; {
+            background = bg;
+            border = bg;
+            text = text;
+          };
+          inactiveWorkspace = with cfg.inactive; {
+            background = bg;
+            border = bg;
+            text = text;
+          };
+          urgentWorkspace = with cfg.urgent; {
+            background = bg;
+            border = bg;
+            text = text;
+          };
+        };
+      }
+    ];
   };
 }

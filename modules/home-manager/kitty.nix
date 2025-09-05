@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options = {
 
@@ -19,7 +24,7 @@
       settings = {
         enable_audio_bell = false;
 
-        background_opacity="0.85";
+        background_opacity = "0.85";
       };
     };
   };

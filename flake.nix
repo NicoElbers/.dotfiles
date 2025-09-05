@@ -14,7 +14,6 @@
       url = "github:NicoElbers/nvim-config";
     };
 
-
     ghostty = {
       url = "git+ssh://git@github.com/ghostty-org/ghostty";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,13 +24,16 @@
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs =
+    { self, nixpkgs, ... }@inputs:
     let
       lib = nixpkgs.lib;
 
       systemSettings = {
         system = "x86_64-linux";
       };
+
+      forAllSystems = f: builtins.mapAttrs f nixpkgs.legacyPackages;
     in
     {
       nixosConfigurations.omen = lib.nixosSystem {
@@ -41,15 +43,18 @@
         };
         system = systemSettings.system;
         modules = [
-          ({...}: {
-            nixpkgs.overlays = import ./overlays.nix {inherit inputs;};
-          })
+          (
+            { ... }:
+            {
+              nixpkgs.overlays = import ./overlays.nix { inherit inputs; };
+            }
+          )
           ./hosts/omen-laptop/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
       };
-      
-      overlays = import ./overlays.nix {inherit inputs;};
+
+      overlays = import ./overlays.nix { inherit inputs; };
 
       templates = import ./templates;
 
