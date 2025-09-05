@@ -53,6 +53,7 @@
 
       templates = import ./templates;
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      formatter = forAllSystems (system: pkgs: pkgs.nixfmt-rfc-style);
+      format = self.formatter.${systemSettings.system};
     };
 }
