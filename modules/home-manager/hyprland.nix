@@ -241,6 +241,7 @@
     exec-once = [
       "systemctl --user start hyprpolkitagent"
       "waybar"
+      "fcitx5 -d"
     ];
 
     "$mod" = "ALT";
