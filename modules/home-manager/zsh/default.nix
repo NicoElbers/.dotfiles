@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -19,6 +20,11 @@ in
   options.zsh-cfg = with lib; {
     enable = mkEnableOption "Zsh configuration";
     debug = mkEnableOption "Debug zsh";
+    artDir = mkOption {
+      type = types.str;
+      default = "~/Pictures/animegirls/";
+      description = "Directory to joink art from";
+    };
     ohMyPosh.enable = mkEnableOption "custom ohMyPosh prompt";
     starship.enable = mkEnableOption "custom starship prompt";
   };
@@ -37,11 +43,10 @@ in
       syntaxHighlighting.enable = true;
       autocd = true;
 
-      initExtraFirst = # bash
-        '''';
-
       initContent = # bash
         ''
+          ${inputs.animegirls.packages.${config.nixpkgs.system}.default}/bin/pick ${config.zsh-cfg.artDir}
+
           # Allow for case insensitive matching
           zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} m:{a-z}={A-Z} r:|[._-]=* r:|=*'
 
