@@ -12,7 +12,7 @@
           font-size = 12;
           # font-feature = [ "" ];
 
-          theme = "catppuccin-mocha";
+          theme = "Catppuccin Mocha";
 
           # Causes some issues with box rendering
           # minimum-contrast = "1.5";
