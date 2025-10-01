@@ -244,7 +244,7 @@
       "fcitx5 -d"
     ];
 
-    "$mod" = "ALT";
+    "$mod" = "SUPER";
     bind = [
       # Common
       "$mod, B, exec, firefox"
@@ -259,10 +259,10 @@
       "$mod,k, movefocus, u" # Move focus Up
       "$mod,l, movefocus, r" # Move focus Left
 
-      "$mod SHIFT,h, swapwindow, l" # Move window Right
-      "$mod SHIFT,j, swapwindow, d" # Move window Down
-      "$mod SHIFT,k, swapwindow, u" # Move window Up
-      "$mod SHIFT,l, swapwindow, r" # Move window Left
+      "$mod SHIFT,h, movewindow, l" # Move window Right
+      "$mod SHIFT,j, movewindow, d" # Move window Down
+      "$mod SHIFT,k, movewindow, u" # Move window Up
+      "$mod SHIFT,l, movewindow, r" # Move window Left
 
       # Util
       "$mod SHIFT, Q, killactive,"
