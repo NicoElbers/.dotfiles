@@ -42,6 +42,7 @@
         bitwarden-desktop
         krita
         blender
+        thunderbird
 
         # Games
         prismlauncher
