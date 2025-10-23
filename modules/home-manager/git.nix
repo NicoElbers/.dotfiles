@@ -19,17 +19,13 @@ in
   config = {
     programs.git = {
       enable = true;
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
 
-      signing = {
-        signByDefault = true;
-        key = null;
-      };
+      settings = {
+        user = {
+          name = cfg.userName;
+          email = cfg.userEmail;
+        };
 
-      lfs.enable = true;
-
-      extraConfig = {
         init.defaultBranch = "main";
 
         pull.rebase = true;
@@ -44,6 +40,13 @@ in
           bc = "blame -C -C -C";
         };
       };
+
+      signing = {
+        signByDefault = true;
+        key = null;
+      };
+
+      lfs.enable = true;
     };
   };
 }
