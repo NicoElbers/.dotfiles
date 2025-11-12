@@ -244,7 +244,8 @@
       "fcitx5 -d"
     ];
 
-    "$mod" = "SUPER";
+    # "$mod" = "SUPER";
+    "$mod" = "Alt";
     bind = [
       # Common
       "$mod, B, exec, firefox"
